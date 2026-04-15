@@ -31,7 +31,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Navigation ── */
   nav {
     position: sticky;
     top: 0;
@@ -72,7 +71,6 @@
     background: rgba(255,255,255,0.1);
   }
 
-  /* ── Hero / Header ── */
   .hero {
     background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 100%);
     padding: 4rem 2rem 3.5rem;
@@ -105,7 +103,6 @@
     object-fit: cover;
     border: 4px solid rgba(255,255,255,0.15);
     box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    /* Replace this with your photo */
     background: linear-gradient(135deg, var(--accent), #5ba4c9);
     display: flex;
     align-items: center;
@@ -158,7 +155,6 @@
     flex-shrink: 0;
   }
 
-  /* ── Main Content ── */
   main {
     max-width: 1100px;
     margin: 0 auto;
@@ -201,7 +197,6 @@
     letter-spacing: 0.02em;
   }
 
-  /* ── Experience Cards ── */
   .experience-grid {
     display: grid;
     gap: 1.2rem;
@@ -236,7 +231,6 @@
     color: var(--text);
   }
 
-  /* ── Projects / Featured ── */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -279,7 +273,6 @@
     color: var(--text-light);
   }
 
-  /* ── Footer ── */
   footer {
     background: var(--navy);
     color: rgba(255,255,255,0.5);
@@ -289,7 +282,6 @@
   }
   footer a { color: rgba(255,255,255,0.7); }
 
-  /* ── Resume Button ── */
   .resume-btn {
     display: inline-flex;
     align-items: center;
@@ -310,7 +302,6 @@
     transform: translateY(-1px);
   }
 
-  /* ── Responsive ── */
   @media (max-width: 768px) {
     .hero-inner {
       grid-template-columns: 1fr;
@@ -329,7 +320,6 @@
     .section-title { font-size: 1.35rem; }
   }
 
-  /* ── Subtle animations ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -344,10 +334,9 @@
 </head>
 <body>
 
-<!-- ═══════════ NAVIGATION ═══════════ -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-name">Your Name</a>
+    <a href="#" class="nav-name" id="nav-name"></a>
     <div class="nav-links">
       <a href="#about" class="active">Home</a>
       <a href="#experience">Experience</a>
@@ -356,34 +345,27 @@
   </div>
 </nav>
 
-<!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
   <div class="hero-inner">
-    <!-- Replace this div with an <img src="your-photo.jpg" class="hero-photo"> -->
-    <div class="hero-photo">YN</div>
+    <div class="hero-photo" id="hero-initials"></div>
     <div class="hero-info">
-      <h1>Your Name</h1>
-      <div class="title">
-        Graduate Research Assistant / RFID Engineer<br>
-        Los Alamos National Labortory<br>
-        Los Alamos, New Mexico
-      </div>
+      <h1 id="hero-name"></h1>
+      <div class="title" id="hero-title"></div>
       <div class="hero-contact">
-        <a href="mailto:you@email.com">
+        <a id="email-link" href="#">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
-          you@email.com
+          <span id="email-text"></span>
         </a>
-        <a href="https://linkedin.com/in/yourprofile" target="_blank">
+        <a id="linkedin-link" href="#" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
           LinkedIn
         </a>
-        <a href="https://github.com/yourprofile" target="_blank">
+        <a id="github-link" href="#" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
       </div>
-      <!-- Optional: Link to downloadable resume PDF -->
-      <a href="#" class="resume-btn">
+      <a href="#" class="resume-btn" id="resume-link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
         Download Resume (PDF)
       </a>
@@ -391,87 +373,154 @@
   </div>
 </header>
 
-<!-- ═══════════ ABOUT ═══════════ -->
 <main>
   <section id="about" class="bio">
     <h2 class="section-title">About Me</h2>
-    <p>
-      I currently work at Los Alamos Natinoal Labortory and graduated from St. Mary's University in 2023 with a BS in Engineering Science.
-      I am also working on a MS in Transdisiplinary Cyber Secuirty at New Mexico Tech, where I am expected to graduate in May 2026"
-    </p>
-    <p>
-      Add another paragraph about your goals, interests, or what you're currently focused on.
-      Keep it conversational but professional.
-    </p>
+    <p id="bio-1"></p>
+    <p id="bio-2"></p>
     <h3 style="font-size:1rem; color:var(--navy); margin-top:1.2rem; margin-bottom:0.5rem;">Interests &amp; Skills</h3>
-    <div class="interests">
-      <span class="interest-tag">JavaScript</span>
-      <span class="interest-tag">Python</span>
-      <span class="interest-tag">React</span>
-      <span class="interest-tag">Data Analysis</span>
-      <span class="interest-tag">Web Development</span>
-      <span class="interest-tag">Machine Learning</span>
-    </div>
+    <div class="interests" id="skills-container"></div>
   </section>
 
-  <!-- ═══════════ EXPERIENCE ═══════════ -->
   <section id="experience">
     <h2 class="section-title">Experience</h2>
-    <div class="experience-grid">
-      <div class="exp-card">
-        <h3>Job Title</h3>
-        <div class="org">Company Name</div>
-        <div class="date">Jan 2023 — Present</div>
-        <p>Describe what you did in this role. Mention key achievements, technologies used, and impact you had.</p>
-      </div>
-      <div class="exp-card">
-        <h3>Previous Job Title</h3>
-        <div class="org">Previous Company</div>
-        <div class="date">Jun 2021 — Dec 2022</div>
-        <p>Describe your responsibilities and accomplishments in this earlier role.</p>
-      </div>
-      <div class="exp-card">
-        <h3>B.S. in Your Major</h3>
-        <div class="org">Your University</div>
-        <div class="date">2017 — 2021</div>
-        <p>Relevant coursework, honors, activities, or thesis work you'd like to highlight.</p>
-      </div>
-    </div>
+    <div class="experience-grid" id="experience-container"></div>
   </section>
 
-  <!-- ═══════════ PROJECTS / FEATURED ═══════════ -->
   <section id="projects">
     <h2 class="section-title">Featured Projects</h2>
-    <div class="projects-grid">
-      <a href="#" class="project-card">
-        <div class="project-thumb">🚀</div>
-        <div class="project-body">
-          <h3>Project Name</h3>
-          <p>A short description of what this project does, the tech you used, and why it matters.</p>
-        </div>
-      </a>
-      <a href="#" class="project-card">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#d5f5e3,#aed6f1);">📊</div>
-        <div class="project-body">
-          <h3>Another Project</h3>
-          <p>Brief overview of another project or accomplishment you want to showcase.</p>
-        </div>
-      </a>
-      <a href="#" class="project-card">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#fdebd0,#fadbd8);">🎨</div>
-        <div class="project-body">
-          <h3>Creative Work</h3>
-          <p>This could be a design project, publication, volunteer work, or anything else you're proud of.</p>
-        </div>
-      </a>
-    </div>
+    <div class="projects-grid" id="projects-container"></div>
   </section>
 </main>
 
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer>
-  &copy; 2026 Your Name &middot; <a href="mailto:you@email.com">you@email.com</a>
-</footer>
+<footer id="footer"></footer>
+
+<script>
+  // ╔═══════════════════════════════════════════════════════════════╗
+  // ║  ✏️  EDIT YOUR INFO HERE                                     ║
+  // ║  Change the values below — the entire page updates           ║
+  // ║  automatically. You never need to touch the HTML above.      ║
+  // ╚═══════════════════════════════════════════════════════════════╝
+
+  const myName     = "Anthony Sadler";
+  const email      = "testingEmail@gmail.com";
+  const title      = "RFID Engineer / Software Developer";
+  const company    = "Los Alamos National Laboratory";
+  const myLocation = "Los Alamos, New Mexico";
+  const github     = "https://github.com/Asadler1";
+  const linkedin   = "https://www.linkedin.com/in/anthony-sadler-2498b0256";
+  const resumeURL  = "#";  // Replace with a link to your resume PDF
+
+  const bio1 = "I currently work at Los Alamos National Laboratory and graduated from St. Mary's University in 2023 with a BS in Engineering Science. I am also working on a MS in Transdisciplinary Cyber Security at New Mexico Tech, where I am expected to graduate in May 2026.";
+
+  const bio2 = "My interests span RFID systems, embedded software, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges.";
+
+  const skills = [
+    "Python",
+    "JavaScript",
+    "RFID Systems",
+    "Cybersecurity",
+    "Embedded Software",
+    "Web Development",
+    "React",
+    "Data Analysis"
+  ];
+
+  const experience = [
+    {
+      title: "RFID Engineer / Graduate Research Assistant",
+      org:   "Los Alamos National Laboratory",
+      date:  "2023 — Present",
+      desc:  "Working on RFID systems and software development. Describe your key projects and achievements here."
+    },
+    {
+      title: "B.S. in Engineering Science",
+      org:   "St. Mary's University",
+      date:  "2019 — 2023",
+      desc:  "Relevant coursework, honors, activities, or thesis work you'd like to highlight."
+    },
+    {
+      title: "M.S. in Transdisciplinary Cyber Security",
+      org:   "New Mexico Tech",
+      date:  "2024 — 2026 (Expected)",
+      desc:  "Describe your focus areas, research, or notable coursework."
+    }
+  ];
+
+  const projects = [
+    {
+      name:  "Project Name",
+      desc:  "A short description of what this project does, the tech you used, and why it matters.",
+      link:  "#",
+      emoji: "🚀",
+      bg:    "linear-gradient(135deg, var(--accent-light), #e8d5eb)"
+    },
+    {
+      name:  "Another Project",
+      desc:  "Brief overview of another project or accomplishment you want to showcase.",
+      link:  "#",
+      emoji: "📊",
+      bg:    "linear-gradient(135deg, #d5f5e3, #aed6f1)"
+    },
+    {
+      name:  "Creative Work",
+      desc:  "This could be a design project, publication, volunteer work, or anything else you're proud of.",
+      link:  "#",
+      emoji: "🎨",
+      bg:    "linear-gradient(135deg, #fdebd0, #fadbd8)"
+    }
+  ];
+
+  // ╔═══════════════════════════════════════════════════════════════╗
+  // ║  🛑  STOP — Don't edit below this line                       ║
+  // ║  This code reads the variables above and fills in the page   ║
+  // ╚═══════════════════════════════════════════════════════════════╝
+
+  const initials = myName.split(" ").map(w => w[0]).join("");
+
+  document.getElementById("nav-name").textContent = myName;
+  document.getElementById("hero-initials").textContent = initials;
+  document.getElementById("hero-name").textContent = myName;
+  document.getElementById("hero-title").innerHTML = title + "<br>" + company + "<br>" + myLocation;
+
+  document.getElementById("email-link").href = "mailto:" + email;
+  document.getElementById("email-text").textContent = email;
+  document.getElementById("linkedin-link").href = linkedin;
+  document.getElementById("github-link").href = github;
+  document.getElementById("resume-link").href = resumeURL;
+
+  document.getElementById("bio-1").textContent = bio1;
+  document.getElementById("bio-2").textContent = bio2;
+
+  document.getElementById("skills-container").innerHTML =
+    skills.map(s => `<span class="interest-tag">${s}</span>`).join("");
+
+  document.getElementById("experience-container").innerHTML =
+    experience.map(e => `
+      <div class="exp-card">
+        <h3>${e.title}</h3>
+        <div class="org">${e.org}</div>
+        <div class="date">${e.date}</div>
+        <p>${e.desc}</p>
+      </div>
+    `).join("");
+
+  document.getElementById("projects-container").innerHTML =
+    projects.map(p => `
+      <a href="${p.link}" class="project-card">
+        <div class="project-thumb" style="background:${p.bg}">${p.emoji}</div>
+        <div class="project-body">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+        </div>
+      </a>
+    `).join("");
+
+  document.getElementById("footer").innerHTML =
+    `&copy; 2026 ${myName} &middot; <a href="mailto:${email}">${email}</a>`;
+
+  document.title = myName + " — Portfolio";
+</script>
 
 </body>
 </html>
