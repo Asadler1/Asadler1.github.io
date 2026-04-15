@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2332;
+    --slate: #2c3e50;
+    --accent: #3a7ca5;
+    --accent-light: #d6eaf8;
+    --warm-white: #faf9f7;
+    --text: #2d2d2d;
+    --text-light: #5a6a7a;
+    --border: #e2e8f0;
+    --card-bg: #ffffff;
+    --shadow: 0 2px 20px rgba(26, 35, 50, 0.08);
+    --shadow-hover: 0 8px 30px rgba(26, 35, 50, 0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Navigation ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    padding: 0 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-name {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-links { display: flex; gap: 0.25rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* ── Hero / Header ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 100%);
+    padding: 4rem 2rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(58,124,165,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+  }
+  .hero-photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.15);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    /* Replace this with your photo */
+    background: linear-gradient(135deg, var(--accent), #5ba4c9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 5rem;
+    font-family: 'Source Serif 4', serif;
+  }
+  .hero-info h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .hero-info .title {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+  .hero-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .hero-contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-contact a:hover {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+  .hero-contact a svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ── Main Content ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  section { margin-bottom: 3rem; }
+
+  .section-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+
+  .bio p {
+    font-size: 1.02rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    max-width: 780px;
+  }
+
+  .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .interest-tag {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Experience Cards ── */
+  .experience-grid {
+    display: grid;
+    gap: 1.2rem;
+  }
+  .exp-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.8rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s;
+  }
+  .exp-card:hover { box-shadow: var(--shadow-hover); }
+  .exp-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.15rem;
+  }
+  .exp-card .org {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .exp-card .date {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+  .exp-card p {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  /* ── Projects / Featured ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .project-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+  .project-thumb {
+    height: 170px;
+    background: linear-gradient(135deg, var(--accent-light), #e8d5eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .project-body {
+    padding: 1.3rem 1.5rem;
+  }
+  .project-body h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .project-body p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer a { color: rgba(255,255,255,0.7); }
+
+  /* ── Resume Button ── */
+  .resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: all 0.2s;
+    border: none;
+  }
+  .resume-btn:hover {
+    background: #2e6a8f;
+    transform: translateY(-1px);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 1.5rem;
+    }
+    .hero-photo {
+      margin: 0 auto;
+      width: 160px;
+      height: 160px;
+      font-size: 3.5rem;
+    }
+    .hero-info h1 { font-size: 2rem; }
+    .hero-contact { justify-content: center; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 1.35rem; }
+  }
+
+  /* ── Subtle animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  section {
+    animation: fadeUp 0.5s ease-out both;
+  }
+  section:nth-child(2) { animation-delay: 0.1s; }
+  section:nth-child(3) { animation-delay: 0.2s; }
+  section:nth-child(4) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Your Name</a>
+    <div class="nav-links">
+      <a href="#about" class="active">Home</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <!-- Replace this div with an <img src="your-photo.jpg" class="hero-photo"> -->
+    <div class="hero-photo">YN</div>
+    <div class="hero-info">
+      <h1>Your Name</h1>
+      <div class="title">
+        Your Job Title / Role<br>
+        Company or University Name<br>
+        Charlotte, NC
+      </div>
+      <div class="hero-contact">
+        <a href="mailto:you@email.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
+          you@email.com
+        </a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/yourprofile" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <!-- Optional: Link to downloadable resume PDF -->
+      <a href="#" class="resume-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+        Download Resume (PDF)
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<main>
+  <section id="about" class="bio">
+    <h2 class="section-title">About Me</h2>
+    <p>
+      Write a short paragraph about yourself here. Describe what you do, your background, 
+      and what drives you professionally. For example: "I am a software developer with 3 years 
+      of experience building web applications. I graduated from XYZ University with a degree 
+      in Computer Science and currently work at ABC Company."
+    </p>
+    <p>
+      Add another paragraph about your goals, interests, or what you're currently focused on.
+      Keep it conversational but professional.
+    </p>
+    <h3 style="font-size:1rem; color:var(--navy); margin-top:1.2rem; margin-bottom:0.5rem;">Interests &amp; Skills</h3>
+    <div class="interests">
+      <span class="interest-tag">JavaScript</span>
+      <span class="interest-tag">Python</span>
+      <span class="interest-tag">React</span>
+      <span class="interest-tag">Data Analysis</span>
+      <span class="interest-tag">Web Development</span>
+      <span class="interest-tag">Machine Learning</span>
+    </div>
+  </section>
+
+  <!-- ═══════════ EXPERIENCE ═══════════ -->
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="experience-grid">
+      <div class="exp-card">
+        <h3>Job Title</h3>
+        <div class="org">Company Name</div>
+        <div class="date">Jan 2023 — Present</div>
+        <p>Describe what you did in this role. Mention key achievements, technologies used, and impact you had.</p>
+      </div>
+      <div class="exp-card">
+        <h3>Previous Job Title</h3>
+        <div class="org">Previous Company</div>
+        <div class="date">Jun 2021 — Dec 2022</div>
+        <p>Describe your responsibilities and accomplishments in this earlier role.</p>
+      </div>
+      <div class="exp-card">
+        <h3>B.S. in Your Major</h3>
+        <div class="org">Your University</div>
+        <div class="date">2017 — 2021</div>
+        <p>Relevant coursework, honors, activities, or thesis work you'd like to highlight.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PROJECTS / FEATURED ═══════════ -->
+  <section id="projects">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
+      <a href="#" class="project-card">
+        <div class="project-thumb">🚀</div>
+        <div class="project-body">
+          <h3>Project Name</h3>
+          <p>A short description of what this project does, the tech you used, and why it matters.</p>
+        </div>
+      </a>
+      <a href="#" class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#d5f5e3,#aed6f1);">📊</div>
+        <div class="project-body">
+          <h3>Another Project</h3>
+          <p>Brief overview of another project or accomplishment you want to showcase.</p>
+        </div>
+      </a>
+      <a href="#" class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#fdebd0,#fadbd8);">🎨</div>
+        <div class="project-body">
+          <h3>Creative Work</h3>
+          <p>This could be a design project, publication, volunteer work, or anything else you're proud of.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  &copy; 2026 Your Name &middot; <a href="mailto:you@email.com">you@email.com</a>
+</footer>
+
+</body>
+</html>
