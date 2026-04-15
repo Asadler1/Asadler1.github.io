@@ -104,12 +104,6 @@
     border: 4px solid rgba(255,255,255,0.15);
     box-shadow: 0 12px 40px rgba(0,0,0,0.3);
     background: linear-gradient(135deg, var(--accent), #5ba4c9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.6);
-    font-size: 5rem;
-    font-family: 'Source Serif 4', serif;
   }
   .hero-info h1 {
     font-family: 'Source Serif 4', serif;
@@ -347,7 +341,7 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <div class="hero-photo" id="hero-initials"></div>
+    <img class="hero-photo" id="hero-photo" src="images/me.jpg" alt="Anthony Sadler">
     <div class="hero-info">
       <h1 id="hero-name"></h1>
       <div class="title" id="hero-title"></div>
@@ -476,10 +470,7 @@
   // ║  This code reads the variables above and fills in the page   ║
   // ╚═══════════════════════════════════════════════════════════════╝
 
-  const initials = myName.split(" ").map(w => w[0]).join("");
-
   document.getElementById("nav-name").textContent = myName;
-  document.getElementById("hero-initials").textContent = initials;
   document.getElementById("hero-name").textContent = myName;
   document.getElementById("hero-title").innerHTML = title + "<br>" + company + "<br>" + myLocation;
 
