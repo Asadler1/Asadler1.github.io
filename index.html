@@ -227,47 +227,6 @@
     color: var(--text);
   }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: all 0.3s;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  .project-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-3px);
-  }
-  .project-thumb {
-    height: 170px;
-    background: linear-gradient(135deg, var(--accent-light), #e8d5eb);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-  }
-  .project-body {
-    padding: 1.3rem 1.5rem;
-  }
-  .project-body h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.4rem;
-  }
-  .project-body p {
-    font-size: 0.9rem;
-    color: var(--text-light);
-  }
 
   footer {
     background: var(--navy);
@@ -336,7 +295,8 @@
     <div class="nav-links">
       <a href="#about" class="active">Home</a>
       <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#awards">Awards</a>
     </div>
   </div>
 </nav>
@@ -383,9 +343,14 @@
     <div class="experience-grid" id="experience-container"></div>
   </section>
 
-  <section id="projects">
-    <h2 class="section-title">Featured Projects</h2>
-    <div class="projects-grid" id="projects-container"></div>
+  <section id="publications">
+    <h2 class="section-title">Publications</h2>
+    <div class="publications-list" id="publications-container"></div>
+  </section>
+
+  <section id="awards">
+    <h2 class="section-title">Awards & Achievements</h2>
+    <div class="awards-list" id="awards-container"></div>
   </section>
 </main>
 
@@ -399,7 +364,7 @@
   // ╚═══════════════════════════════════════════════════════════════╝
 
   const myName     = "Anthony Sadler";
-  const email      = "testingEmail@gmail.com";
+  const email      = "sadleranthony18@gmai@gmail.com";
   const title      = "RFID Engineer / Software Developer";
   const company    = "Los Alamos National Laboratory";
   const myLocation = "Los Alamos, New Mexico";
@@ -443,27 +408,22 @@
     }
   ];
 
-  const projects = [
+  const publications = [
     {
-      name:  "Project Name",
-      desc:  "A short description of what this project does, the tech you used, and why it matters.",
+      title: "Publication Title",
+      venue: "Journal / Conference Name",
+      date:  "2024",
       link:  "#",
-      emoji: "🚀",
-      bg:    "linear-gradient(135deg, var(--accent-light), #e8d5eb)"
-    },
+      desc:  "Brief summary of the paper or research."
+    }
+  ];
+
+  const awards = [
     {
-      name:  "Another Project",
-      desc:  "Brief overview of another project or accomplishment you want to showcase.",
-      link:  "#",
-      emoji: "📊",
-      bg:    "linear-gradient(135deg, #d5f5e3, #aed6f1)"
-    },
-    {
-      name:  "Creative Work",
-      desc:  "This could be a design project, publication, volunteer work, or anything else you're proud of.",
-      link:  "#",
-      emoji: "🎨",
-      bg:    "linear-gradient(135deg, #fdebd0, #fadbd8)"
+      title: "Award Name",
+      org:   "Awarding Organization",
+      date:  "2023",
+      desc:  "Brief description of the award and why it was given."
     }
   ];
 
@@ -498,15 +458,24 @@
       </div>
     `).join("");
 
-  document.getElementById("projects-container").innerHTML =
-    projects.map(p => `
-      <a href="${p.link}" class="project-card">
-        <div class="project-thumb" style="background:${p.bg}">${p.emoji}</div>
-        <div class="project-body">
-          <h3>${p.name}</h3>
-          <p>${p.desc}</p>
-        </div>
+  document.getElementById("publications-container").innerHTML =
+    publications.map(p => `
+      <a href="${p.link}" class="exp-card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>${p.title}</h3>
+        <div class="org">${p.venue}</div>
+        <div class="date">${p.date}</div>
+        <p>${p.desc}</p>
       </a>
+    `).join("");
+
+  document.getElementById("awards-container").innerHTML =
+    awards.map(a => `
+      <div class="exp-card">
+        <h3>${a.title}</h3>
+        <div class="org">${a.org}</div>
+        <div class="date">${a.date}</div>
+        <p>${a.desc}</p>
+      </div>
     `).join("");
 
   document.getElementById("footer").innerHTML =
