@@ -56,20 +56,20 @@
     letter-spacing: -0.01em;
   }
   .nav-links { display: flex; gap: 0.25rem; }
-  .nav-links a {
+  .nav-tab {
     color: rgba(255,255,255,0.75);
-    text-decoration: none;
+    background: none;
+    border: none;
     font-size: 0.9rem;
     font-weight: 500;
     padding: 0.5rem 1rem;
     border-radius: 6px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
     transition: all 0.2s;
   }
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: #fff;
-    background: rgba(255,255,255,0.1);
-  }
+  .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav-tab.active { color: #fff; background: rgba(255,255,255,0.15); }
 
   .hero {
     background: linear-gradient(135deg, rgba(26, 35, 50, 0.7) 0%, rgba(44, 62, 80, 0.7) 100%), url('images/hero-bg.jpg');
@@ -228,35 +228,6 @@
   }
 
 
-  .tab-bar {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    box-shadow: 0 2px 8px rgba(26,35,50,0.06);
-  }
-  .tab-bar-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    gap: 0;
-  }
-  .tab-btn {
-    padding: 1rem 1.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-light);
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .tab-btn:hover { color: var(--navy); }
-  .tab-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
@@ -324,7 +295,11 @@
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-name" id="nav-name"></a>
-    <div class="nav-links"></div>
+    <div class="nav-links">
+      <button class="nav-tab active" data-tab="about">About</button>
+      <button class="nav-tab" data-tab="publications">Publications</button>
+      <button class="nav-tab" data-tab="awards">Awards</button>
+    </div>
   </div>
 </nav>
 
@@ -356,27 +331,19 @@
   </div>
 </header>
 
-<div class="tab-bar">
-  <div class="tab-bar-inner">
-    <button class="tab-btn active" data-tab="about">About</button>
-    <button class="tab-btn" data-tab="experience">Experience</button>
-    <button class="tab-btn" data-tab="publications">Publications</button>
-    <button class="tab-btn" data-tab="awards">Awards</button>
-  </div>
-</div>
-
 <main>
-  <section id="about" class="bio tab-content active" data-tab-content="about">
-    <h2 class="section-title">About Me</h2>
-    <p id="bio-1"></p>
-    <p id="bio-2"></p>
-    <h3 style="font-size:1rem; color:var(--navy); margin-top:1.2rem; margin-bottom:0.5rem;">Interests &amp; Skills</h3>
-    <div class="interests" id="skills-container"></div>
-  </section>
-
-  <section id="experience" class="tab-content" data-tab-content="experience">
-    <h2 class="section-title">Experience</h2>
-    <div class="experience-grid" id="experience-container"></div>
+  <section id="about" class="tab-content active" data-tab-content="about">
+    <div class="bio">
+      <h2 class="section-title">About Me</h2>
+      <p id="bio-1"></p>
+      <p id="bio-2"></p>
+      <h3 style="font-size:1rem; color:var(--navy); margin-top:1.2rem; margin-bottom:0.5rem;">Interests &amp; Skills</h3>
+      <div class="interests" id="skills-container"></div>
+    </div>
+    <div style="margin-top: 2.5rem;">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-grid" id="experience-container"></div>
+    </div>
   </section>
 
   <section id="publications" class="tab-content" data-tab-content="publications">
@@ -520,7 +487,7 @@
   document.title = myName + " — Portfolio";
 
   // Tab switching
-  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabBtns = document.querySelectorAll('.nav-tab');
   const tabSections = document.querySelectorAll('.tab-content');
 
   tabBtns.forEach(btn => {
