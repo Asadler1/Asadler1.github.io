@@ -228,6 +228,38 @@
   }
 
 
+  .tab-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    box-shadow: 0 2px 8px rgba(26,35,50,0.06);
+  }
+  .tab-bar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+  }
+  .tab-btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .tab-btn:hover { color: var(--navy); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
   footer {
     background: var(--navy);
     color: rgba(255,255,255,0.5);
@@ -292,12 +324,7 @@
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-name" id="nav-name"></a>
-    <div class="nav-links">
-      <a href="#about" class="active">Home</a>
-      <a href="#experience">Experience</a>
-      <a href="#publications">Publications</a>
-      <a href="#awards">Awards</a>
-    </div>
+    <div class="nav-links"></div>
   </div>
 </nav>
 
@@ -329,8 +356,17 @@
   </div>
 </header>
 
+<div class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" data-tab="about">About</button>
+    <button class="tab-btn" data-tab="experience">Experience</button>
+    <button class="tab-btn" data-tab="publications">Publications</button>
+    <button class="tab-btn" data-tab="awards">Awards</button>
+  </div>
+</div>
+
 <main>
-  <section id="about" class="bio">
+  <section id="about" class="bio tab-content active" data-tab-content="about">
     <h2 class="section-title">About Me</h2>
     <p id="bio-1"></p>
     <p id="bio-2"></p>
@@ -338,17 +374,17 @@
     <div class="interests" id="skills-container"></div>
   </section>
 
-  <section id="experience">
+  <section id="experience" class="tab-content" data-tab-content="experience">
     <h2 class="section-title">Experience</h2>
     <div class="experience-grid" id="experience-container"></div>
   </section>
 
-  <section id="publications">
+  <section id="publications" class="tab-content" data-tab-content="publications">
     <h2 class="section-title">Publications</h2>
     <div class="publications-list" id="publications-container"></div>
   </section>
 
-  <section id="awards">
+  <section id="awards" class="tab-content" data-tab-content="awards">
     <h2 class="section-title">Awards & Achievements</h2>
     <div class="awards-list" id="awards-container"></div>
   </section>
@@ -364,7 +400,7 @@
   // ╚═══════════════════════════════════════════════════════════════╝
 
   const myName     = "Anthony Sadler";
-  const email      = "sadleranthony18@gmai@gmail.com";
+  const email      = "sadleranthony18@gmail.com";
   const title      = "RFID Engineer / Software Developer";
   const company    = "Los Alamos National Laboratory";
   const myLocation = "Los Alamos, New Mexico";
@@ -482,6 +518,19 @@
     `&copy; 2026 ${myName} &middot; <a href="mailto:${email}">${email}</a>`;
 
   document.title = myName + " — Portfolio";
+
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabSections = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabSections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`[data-tab-content="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
 </script>
 
 </body>
