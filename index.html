@@ -44,16 +44,8 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     height: 60px;
-  }
-  .nav-name {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: -0.01em;
   }
   .nav-links { display: flex; gap: 0.25rem; }
   .nav-tab {
@@ -295,7 +287,6 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-name" id="nav-name"></a>
     <div class="nav-links">
       <button class="nav-tab active" data-tab="about">About</button>
       <button class="nav-tab" data-tab="publications">Publications</button>
@@ -436,7 +427,6 @@
   // ║  This code reads the variables above and fills in the page   ║
   // ╚═══════════════════════════════════════════════════════════════╝
 
-  document.getElementById("nav-name").textContent = myName;
   document.getElementById("hero-name").textContent = myName;
   document.getElementById("hero-title").innerHTML = title + "<br>" + company + "<br>" + myLocation;
 
