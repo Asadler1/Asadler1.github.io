@@ -12,8 +12,8 @@
   :root {
     --navy: #1a2332;
     --slate: #2c3e50;
-    --accent: #3a7ca5;
-    --accent-light: #d6eaf8;
+    --accent: #00c97a;
+    --accent-light: #d0f7ea;
     --warm-white: #faf9f7;
     --text: #2d2d2d;
     --text-light: #5a6a7a;
@@ -27,7 +27,8 @@
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--warm-white);
+    background: var(--warm-white) url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><rect width="100" height="100" fill="none" stroke="%2300c97a" stroke-width="1"/><circle cx="10" cy="10" r="2" fill="%2300c97a"/><circle cx="90" cy="90" r="2" fill="%2300c97a"/><path d="M 10 10 L 50 10 L 50 30 L 90 30 L 90 60 L 50 60 L 50 90" stroke="%2300c97a" stroke-width="0.5" fill="none"/></svg>');
+    background-attachment: fixed;
     color: var(--text);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
@@ -47,6 +48,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 1.5rem;
     height: 60px;
   }
   .nav-links { display: flex; gap: 0.25rem; }
@@ -92,6 +94,7 @@
     gap: 3rem;
     align-items: stretch;
     position: relative;
+    z-index: 1;
   }
   .hero-photo {
     width: 340px;
@@ -288,6 +291,105 @@
     .section-title { font-size: 1.35rem; }
   }
 
+  @keyframes rfid-pulse {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+  @keyframes scan-line {
+    0% { top: 0; opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+  @keyframes signal-dot {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+  }
+
+  .rfid-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .rfid-wave {
+    position: absolute;
+    border: 2px solid rgba(0, 201, 122, 0.3);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rfid-pulse 2.5s ease-out infinite;
+  }
+  .rfid-wave:nth-child(1) { width: 80px; height: 80px; animation-delay: 0s; }
+  .rfid-wave:nth-child(2) { width: 80px; height: 80px; animation-delay: 0.8s; }
+  .rfid-wave:nth-child(3) { width: 80px; height: 80px; animation-delay: 1.6s; }
+
+  .section-title {
+    text-shadow: 0 0 8px rgba(0, 201, 122, 0.2);
+  }
+
+  .exp-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card:hover {
+    border-color: var(--accent);
+  }
+  .exp-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scan-line 1.2s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .exp-card:hover::after {
+    animation: scan-line 1.2s ease-in-out;
+    opacity: 1;
+  }
+
+  .signal-dots {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+  }
+  .signal-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: signal-dot 1.5s ease-in-out infinite;
+  }
+  .signal-dot:nth-child(2) { animation-delay: 0.3s; }
+  .signal-dot:nth-child(3) { animation-delay: 0.6s; }
+
+  .rf-divider {
+    display: flex;
+    align-items: center;
+    margin: 2.5rem 0;
+    color: var(--accent);
+  }
+  .rf-divider::before,
+  .rf-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+  }
+  .rf-divider svg {
+    width: 24px;
+    height: 24px;
+    margin: 0 1rem;
+    flex-shrink: 0;
+  }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -304,6 +406,11 @@
 
 <nav>
   <div class="nav-inner">
+    <div class="signal-dots">
+      <div class="signal-dot"></div>
+      <div class="signal-dot"></div>
+      <div class="signal-dot"></div>
+    </div>
     <div class="nav-links">
       <a class="nav-tab" href="#about">About</a>
       <a class="nav-tab" href="#publications">Publications</a>
@@ -313,6 +420,11 @@
 </nav>
 
 <header class="hero">
+  <div class="rfid-waves">
+    <div class="rfid-wave"></div>
+    <div class="rfid-wave"></div>
+    <div class="rfid-wave"></div>
+  </div>
   <div class="hero-inner">
     <div class="hero-info">
       <h1 id="hero-name"></h1>
@@ -355,10 +467,28 @@
     </div>
   </section>
 
+  <div class="rf-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <circle cx="12" cy="12" r="7"/>
+      <circle cx="12" cy="12" r="11"/>
+      <path d="M 4 12 L 2 12 M 20 12 L 22 12"/>
+    </svg>
+  </div>
+
   <section id="publications">
     <h2 class="section-title">Publications</h2>
     <div class="publications-list" id="publications-container"></div>
   </section>
+
+  <div class="rf-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <circle cx="12" cy="12" r="7"/>
+      <circle cx="12" cy="12" r="11"/>
+      <path d="M 4 12 L 2 12 M 20 12 L 22 12"/>
+    </svg>
+  </div>
 
   <section id="awards">
     <h2 class="section-title">Awards & Achievements</h2>
