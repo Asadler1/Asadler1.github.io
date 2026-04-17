@@ -219,6 +219,23 @@
     font-size: 0.95rem;
     color: var(--text);
   }
+  .award-card {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .award-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  @media (max-width: 768px) {
+    .award-card {
+      grid-template-columns: 1fr;
+    }
+  }
 
 
   .tab-content { display: none; }
@@ -415,10 +432,11 @@
 
   const awards = [
     {
-      title: "Award Name",
-      org:   "Awarding Organization",
-      date:  "2023",
-      desc:  "Brief description of the award and why it was given."
+      title: "Spot Award",
+      org:   "Los Alamos National Laboratory",
+      date:  "2026",
+      desc:  "Thankful for the recognition of a Spot Award from Los Alamos National Laboratory! I'm very appreciative of the support and collaboration that made this possible, and excited for what lies ahead. 👨‍🔬",
+      image: "images/spot-award.jpg"
     }
   ];
 
@@ -464,11 +482,14 @@
 
   document.getElementById("awards-container").innerHTML =
     awards.map(a => `
-      <div class="exp-card">
-        <h3>${a.title}</h3>
-        <div class="org">${a.org}</div>
-        <div class="date">${a.date}</div>
-        <p>${a.desc}</p>
+      <div class="exp-card award-card">
+        <div>
+          <h3>${a.title}</h3>
+          <div class="org">${a.org}</div>
+          <div class="date">${a.date}</div>
+          <p>${a.desc}</p>
+        </div>
+        ${a.image ? `<img src="${a.image}" alt="${a.title}">` : ''}
       </div>
     `).join("");
 
