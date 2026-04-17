@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  html { scroll-behavior: smooth; }
+
   :root {
     --navy: #1a2332;
     --slate: #2c3e50;
@@ -59,9 +61,10 @@
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
     transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
   }
   .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
-  .nav-tab.active { color: #fff; background: rgba(255,255,255,0.15); }
 
   .hero {
     background: linear-gradient(135deg, rgba(26, 35, 50, 0.7) 0%, rgba(44, 62, 80, 0.7) 100%), url('images/hero-bg.jpg');
@@ -238,9 +241,6 @@
   }
 
 
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
   footer {
     background: var(--navy);
     color: rgba(255,255,255,0.5);
@@ -305,9 +305,9 @@
 <nav>
   <div class="nav-inner">
     <div class="nav-links">
-      <button class="nav-tab active" data-tab="about">About</button>
-      <button class="nav-tab" data-tab="publications">Publications</button>
-      <button class="nav-tab" data-tab="awards">Awards</button>
+      <a class="nav-tab" href="#about">About</a>
+      <a class="nav-tab" href="#publications">Publications</a>
+      <a class="nav-tab" href="#awards">Awards</a>
     </div>
   </div>
 </nav>
@@ -341,7 +341,7 @@
 </header>
 
 <main>
-  <section id="about" class="tab-content active" data-tab-content="about">
+  <section id="about">
     <div class="bio">
       <h2 class="section-title">About Me</h2>
       <p id="bio-1"></p>
@@ -355,12 +355,12 @@
     </div>
   </section>
 
-  <section id="publications" class="tab-content" data-tab-content="publications">
+  <section id="publications">
     <h2 class="section-title">Publications</h2>
     <div class="publications-list" id="publications-container"></div>
   </section>
 
-  <section id="awards" class="tab-content" data-tab-content="awards">
+  <section id="awards">
     <h2 class="section-title">Awards & Achievements</h2>
     <div class="awards-list" id="awards-container"></div>
   </section>
@@ -497,19 +497,6 @@
     `&copy; 2026 ${myName} &middot; <a href="mailto:${email}">${email}</a>`;
 
   document.title = myName + " — Portfolio";
-
-  // Tab switching
-  const tabBtns = document.querySelectorAll('.nav-tab');
-  const tabSections = document.querySelectorAll('.tab-content');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabSections.forEach(s => s.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`[data-tab-content="${btn.dataset.tab}"]`).classList.add('active');
-    });
-  });
 </script>
 
 </body>
