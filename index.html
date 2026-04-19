@@ -5,32 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anthony Sadler — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  html { scroll-behavior: smooth; }
-
   :root {
-    --navy: #1a2332;
-    --slate: #2c3e50;
-    --accent: #00c97a;
-    --accent-light: #d0f7ea;
-    --warm-white: #faf9f7;
-    --text: #2d2d2d;
-    --text-light: #5a6a7a;
-    --border: #e2e8f0;
-    --card-bg: #ffffff;
-    --shadow: 0 2px 20px rgba(26, 35, 50, 0.08);
-    --shadow-hover: 0 8px 30px rgba(26, 35, 50, 0.14);
+    --bg: #0a0a0a;
+    --bg-secondary: #141414;
+    --text: #ffffff;
+    --text-muted: #a3a3a3;
+    --accent: #00d9ff;
+    --accent-2: #6366f1;
+    --border: #262626;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: #f5f7fa url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.1"><defs><pattern id="rfid-tags" x="0" y="0" width="400" height="400" patternUnits="userSpaceOnUse"><g id="tag"><rect x="20" y="30" width="140" height="90" rx="6" fill="none" stroke="%23333" stroke-width="2.5"/><g id="antenna" stroke="%23333" stroke-width="2" fill="none"><path d="M 60 30 L 60 10 Q 60 0 70 0 Q 80 0 80 10"/><path d="M 120 30 L 120 10 Q 120 0 110 0 Q 100 0 100 10"/></g><circle cx="90" cy="20" r="3" fill="%23333"/><line x1="35" y1="50" x2="145" y2="50" stroke="%23333" stroke-width="1.5" opacity="0.7"/><line x1="35" y1="65" x2="145" y2="65" stroke="%23333" stroke-width="1.5" opacity="0.7"/><line x1="35" y1="80" x2="145" y2="80" stroke="%23333" stroke-width="1.5" opacity="0.7"/><circle cx="50" cy="50" r="3" fill="%23333" opacity="0.6"/><circle cx="130" cy="65" r="3" fill="%23333" opacity="0.6"/><circle cx="55" cy="80" r="2.5" fill="%23333" opacity="0.5"/></g><use href="%23tag" x="180" y="0" transform="rotate(-20 380 75)"/><use href="%23tag" x="0" y="200" transform="rotate(30 90 245)"/><use href="%23tag" x="180" y="200" transform="rotate(-10 380 245)"/></pattern></defs><rect width="400" height="400" fill="%23f5f7fa"/><rect width="400" height="400" fill="url(%23rfid-tags)"/></svg>');
-    background-attachment: fixed;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -38,206 +33,250 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--navy);
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
     padding: 0 2rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
   }
   .nav-inner {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    height: 60px;
+    justify-content: space-between;
+    height: 64px;
   }
-  .nav-links { display: flex; gap: 0.25rem; }
-  .nav-tab {
-    color: rgba(255,255,255,0.75);
-    background: none;
-    border: none;
+  .nav-name {
+    font-weight: 700;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
-    text-decoration: none;
-    display: inline-block;
+    transition: color 0.3s;
+    position: relative;
   }
-  .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text);
+  }
+  .nav-links a.active::after {
+    width: 100%;
+  }
 
   .hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, rgba(26, 35, 50, 0.4) 0%, rgba(44, 62, 80, 0.4) 100%), url('images/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 2rem;
     position: relative;
     overflow: hidden;
-    transition: opacity 0.6s ease;
   }
-  .hero.fade-out {
-    opacity: 0;
-    pointer-events: none;
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
   }
   .hero-inner {
-    max-width: 500px;
-    margin: 0;
-    padding: 4rem 2rem 4rem 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 4rem;
+    align-items: center;
     position: relative;
     z-index: 1;
   }
-  .hero-photo {
-    width: 300px;
-    height: 380px;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 4px solid rgba(255,255,255,0.2);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  }
-  .hero-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
   .hero-info h1 {
-    font-family: 'Source Serif 4', serif;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.02em;
-    margin: 0;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
   }
   .hero-info .title {
-    font-size: 1.15rem;
-    color: rgba(255,255,255,0.85);
-    font-weight: 400;
-    line-height: 1.6;
-    min-height: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+  .hero-info .title span {
+    color: var(--accent);
+    font-weight: 600;
   }
   .hero-contact {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
   .hero-contact a {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 1rem;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
     border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
-    background: rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.85);
-    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s;
   }
   .hero-contact a:hover {
-    background: rgba(255,255,255,0.2);
-    color: #fff;
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--accent);
+    border-color: var(--accent);
   }
-  .hero-contact a svg {
+  .hero-contact svg {
     width: 16px;
     height: 16px;
-    flex-shrink: 0;
+  }
+  .hero-photo {
+    width: 320px;
+    height: 320px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+  .resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #000;
+    padding: 0.7rem 1.6rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .resume-btn:hover {
+    transform: translateY(-2px);
   }
 
   main {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 2rem 4rem;
+    padding: 4rem 2rem;
   }
 
-  section { margin-bottom: 3rem; }
-
-  #about {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 80px;
   }
 
   .section-title {
-    font-family: 'Source Serif 4', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--navy);
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--accent);
-    display: inline-block;
-    text-shadow: none;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 28px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    border-radius: 2px;
   }
 
   .bio p {
-    font-size: 1.02rem;
-    color: var(--text);
-    margin-bottom: 1rem;
-    max-width: 780px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    line-height: 1.8;
   }
 
   .interests {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
   }
   .interest-tag {
-    background: var(--accent);
-    color: #1a2332;
-    padding: 0.35rem 0.9rem;
-    border-radius: 20px;
-    font-size: 0.82rem;
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--accent);
+    padding: 0.5rem 1.2rem;
+    border-radius: 24px;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    transition: all 0.3s;
+  }
+  .interest-tag:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: var(--accent);
   }
 
   .experience-grid {
     display: grid;
-    gap: 1.2rem;
+    gap: 1.5rem;
   }
   .exp-card {
-    background: var(--card-bg);
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 1.5rem 1.8rem;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.25s;
+    padding: 2rem;
+    transition: all 0.3s;
   }
-  .exp-card:hover { box-shadow: var(--shadow-hover); }
+  .exp-card:hover {
+    background: var(--bg);
+    border-color: var(--accent);
+  }
   .exp-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 0.15rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
   }
   .exp-card .org {
     color: var(--accent);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
   .exp-card .date {
-    color: var(--text-light);
-    font-size: 0.85rem;
-    margin-bottom: 0.6rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
   }
   .exp-card p {
     font-size: 0.95rem;
-    color: #333;
+    color: var(--text-muted);
   }
+
   .award-card {
     display: grid;
     grid-template-columns: 1fr 280px;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: start;
   }
   .award-card img {
@@ -252,223 +291,68 @@
     }
   }
 
-
   footer {
-    background: var(--navy);
-    color: rgba(255,255,255,0.5);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
     text-align: center;
-    padding: 2rem;
-    font-size: 0.85rem;
+    padding: 3rem 2rem;
+    font-size: 0.8rem;
   }
-  footer a { color: rgba(255,255,255,0.7); }
-
-  .resume-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--accent);
-    color: #fff;
-    padding: 0.6rem 1.4rem;
-    border-radius: 8px;
+  footer a {
+    color: var(--accent);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-    transition: all 0.2s;
-    border: none;
-  }
-  .resume-btn:hover {
-    background: #2e6a8f;
-    transform: translateY(-1px);
   }
 
   @media (max-width: 768px) {
     .hero-inner {
       grid-template-columns: 1fr;
       text-align: center;
-      gap: 1.5rem;
+      gap: 2rem;
     }
     .hero-photo {
       margin: 0 auto;
-      width: 200px;
-      height: 200px;
-      min-height: auto;
+      width: 240px;
+      height: 240px;
     }
-    .hero-info h1 { font-size: 2rem; }
-    .hero-contact { justify-content: center; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .section-title { font-size: 1.35rem; }
+    .hero-info h1 {
+      font-size: 2.2rem;
+    }
+    .hero-contact {
+      justify-content: center;
+    }
+    .section-title {
+      font-size: 1.5rem;
+    }
+    .section-title::before {
+      height: 20px;
+    }
   }
-
-  @keyframes rfid-pulse {
-    0% { transform: scale(0.8); opacity: 0.6; }
-    100% { transform: scale(2.5); opacity: 0; }
-  }
-  @keyframes typing {
-    0% { width: 0; }
-    100% { width: 100%; }
-  }
-  @keyframes blink-cursor {
-    0%, 49% { border-right-color: rgba(255, 255, 255, 0.8); }
-    50%, 100% { border-right-color: transparent; }
-  }
-  @keyframes bounce-arrow {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(10px); }
-  }
-  .typing-text {
-    font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.8);
-    border-right: 3px solid rgba(255, 255, 255, 0.8);
-    animation: blink-cursor 1s infinite;
-  }
-  .scroll-arrow {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.6);
-    animation: bounce-arrow 1.5s ease-in-out infinite;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .scroll-arrow:hover {
-    color: rgba(255, 255, 255, 1);
-  }
-  @keyframes scan-line {
-    0% { top: 0; opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-  }
-  @keyframes scan-line-horizontal {
-    0% { left: -100%; }
-    100% { left: 100%; }
-  }
-  @keyframes signal-dot {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.4); }
-  }
-
-  .rfid-waves {
-    display: none;
-  }
-
-  .exp-card {
-    position: relative;
-    overflow: hidden;
-    border: 2px solid var(--border);
-    transition: all 0.3s ease;
-  }
-  .exp-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(0, 201, 122, 0.3), var(--shadow-hover);
-  }
-  .exp-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 201, 122, 0.2), transparent);
-    animation: scan-line-horizontal 2s ease-in-out;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .exp-card:hover::before {
-    animation: scan-line-horizontal 1.2s ease-in-out;
-    opacity: 1;
-  }
-  .exp-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .exp-card:hover::after {
-    opacity: 1;
-  }
-
-  .signal-dots {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-  }
-  .signal-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px rgba(0, 201, 122, 0.8);
-    animation: signal-dot 1.2s ease-in-out infinite;
-  }
-  .signal-dot:nth-child(2) { animation-delay: 0.2s; }
-  .signal-dot:nth-child(3) { animation-delay: 0.4s; }
-
-  .rf-divider {
-    display: flex;
-    align-items: center;
-    margin: 3rem 0;
-    color: var(--accent);
-  }
-  .rf-divider::before,
-  .rf-divider::after {
-    content: '';
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--accent), transparent);
-  }
-  .rf-divider svg {
-    width: 32px;
-    height: 32px;
-    margin: 0 1.5rem;
-    flex-shrink: 0;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  section {
-    animation: fadeUp 0.5s ease-out both;
-  }
-  section:nth-child(2) { animation-delay: 0.1s; }
-  section:nth-child(3) { animation-delay: 0.2s; }
-  section:nth-child(4) { animation-delay: 0.3s; }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <div class="signal-dots">
-      <div class="signal-dot"></div>
-      <div class="signal-dot"></div>
-      <div class="signal-dot"></div>
-    </div>
+    <a href="#" class="nav-name" id="nav-name"></a>
     <div class="nav-links">
-      <a class="nav-tab" href="#about">About</a>
-      <a class="nav-tab" href="#publications">Publications</a>
-      <a class="nav-tab" href="#awards">Awards</a>
+      <a href="#about" class="active">Home</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#awards">Awards</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <img class="hero-photo" id="hero-photo" src="images/me.jpg" alt="Anthony Sadler">
     <div class="hero-info">
       <h1 id="hero-name"></h1>
       <div class="title" id="hero-title"></div>
       <div class="hero-contact">
         <a id="email-link" href="#">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
-          <span id="email-text"></span>
+          Email
         </a>
         <a id="linkedin-link" href="#" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
@@ -481,108 +365,91 @@
       </div>
       <a href="#" class="resume-btn" id="resume-link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-        Download Resume (PDF)
+        Resume
       </a>
     </div>
+    <img class="hero-photo" id="hero-photo" src="images/me.jpg" alt="Anthony Sadler">
   </div>
-  <div class="scroll-arrow" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'});">↓</div>
 </header>
 
 <main>
-  <section id="about">
-    <div class="bio">
-      <h2 class="section-title">About Me</h2>
-      <p id="bio-1"></p>
-      <p id="bio-2"></p>
-      <h3 style="font-size:1rem; color:var(--navy); margin-top:1.2rem; margin-bottom:0.5rem;">Interests &amp; Skills</h3>
-      <div class="interests" id="skills-container"></div>
-    </div>
-    <div style="margin-top: 2.5rem;">
-      <h2 class="section-title">Experience</h2>
-      <div class="experience-grid" id="experience-container"></div>
-    </div>
+  <section id="about" class="bio">
+    <h2 class="section-title">About</h2>
+    <p id="bio-1"></p>
+    <p id="bio-2"></p>
+    <h3 style="font-size:0.9rem; color:var(--text); margin-top:2rem; margin-bottom:1rem; font-weight:600;">Skills &amp; Interests</h3>
+    <div class="interests" id="skills-container"></div>
   </section>
 
-  <div class="rf-divider">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="3"/>
-      <circle cx="12" cy="12" r="7"/>
-      <circle cx="12" cy="12" r="11"/>
-      <path d="M 4 12 L 2 12 M 20 12 L 22 12"/>
-    </svg>
-  </div>
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+
+    <h3 style="font-size:1.2rem; color:var(--text); margin-bottom:1.5rem; font-weight:600;">Work Experience</h3>
+    <div class="experience-grid" id="work-container"></div>
+
+    <h3 style="font-size:1.2rem; color:var(--text); margin-top:2.5rem; margin-bottom:1.5rem; font-weight:600;">Education</h3>
+    <div class="experience-grid" id="education-container"></div>
+  </section>
 
   <section id="publications">
     <h2 class="section-title">Publications</h2>
-    <div class="publications-list" id="publications-container"></div>
+    <div class="experience-grid" id="publications-container"></div>
   </section>
 
-  <div class="rf-divider">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="3"/>
-      <circle cx="12" cy="12" r="7"/>
-      <circle cx="12" cy="12" r="11"/>
-      <path d="M 4 12 L 2 12 M 20 12 L 22 12"/>
-    </svg>
-  </div>
-
   <section id="awards">
-    <h2 class="section-title">Awards & Achievements</h2>
-    <div class="awards-list" id="awards-container"></div>
+    <h2 class="section-title">Awards</h2>
+    <div class="experience-grid" id="awards-container"></div>
   </section>
 </main>
 
 <footer id="footer"></footer>
 
 <script>
-  // ╔═══════════════════════════════════════════════════════════════╗
-  // ║  ✏️  EDIT YOUR INFO HERE                                     ║
-  // ║  Change the values below — the entire page updates           ║
-  // ║  automatically. You never need to touch the HTML above.      ║
-  // ╚═══════════════════════════════════════════════════════════════╝
-
   const myName     = "Anthony Sadler";
   const email      = "sadleranthony18@gmail.com";
-  const title      = "RFID Engineer / Software Developer";
+  const title      = "Engineer / Software Developer";
   const company    = "Los Alamos National Laboratory";
   const myLocation = "Los Alamos, New Mexico";
   const github     = "https://github.com/Asadler1";
   const linkedin   = "https://www.linkedin.com/in/anthony-sadler-2498b0256";
-  const resumeURL  = "#";  // Replace with a link to your resume PDF
+  const resumeURL  = "#";
 
   const bio1 = "I currently work at Los Alamos National Laboratory and graduated from St. Mary's University in 2023 with a BS in Engineering Science. I am also working on a MS in Transdisciplinary Cyber Security at New Mexico Tech, where I am expected to graduate in May 2026.";
 
-  const bio2 = "My interests span RFID systems, embedded software, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges.";
+  const bio2 = "My interests span embedded systems, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges.";
 
   const skills = [
     "Python",
     "JavaScript",
-    "RFID Systems",
+    "Embedded Systems",
     "Cybersecurity",
-    "Embedded Software",
     "Web Development",
     "React",
-    "Data Analysis"
+    "Data Analysis",
+    "Go"
   ];
 
-  const experience = [
+  const workExperience = [
     {
-      title: "RFID Engineer / Graduate Research Assistant",
+      title: "Engineer / Graduate Research Assistant",
       org:   "Los Alamos National Laboratory",
       date:  "2023 — Present",
-      desc:  "Working on RFID systems and software development. Describe your key projects and achievements here."
+      desc:  "Working on systems engineering and software development. Building solutions for complex technical challenges."
+    }
+  ];
+
+  const education = [
+    {
+      title: "M.S. in Transdisciplinary Cyber Security",
+      org:   "New Mexico Tech",
+      date:  "2024 — 2026 (Expected)",
+      desc:  "Focused on cybersecurity research and advanced technical topics."
     },
     {
       title: "B.S. in Engineering Science",
       org:   "St. Mary's University",
       date:  "2019 — 2023",
-      desc:  "Relevant coursework, honors, activities, or thesis work you'd like to highlight."
-    },
-    {
-      title: "M.S. in Transdisciplinary Cyber Security",
-      org:   "New Mexico Tech",
-      date:  "2024 — 2026 (Expected)",
-      desc:  "Describe your focus areas, research, or notable coursework."
+      desc:  "Focused on engineering fundamentals, design, and practical problem-solving."
     }
   ];
 
@@ -601,55 +468,16 @@
       title: "Spot Award",
       org:   "Los Alamos National Laboratory",
       date:  "2026",
-      desc:  "Thankful for the recognition of a Spot Award from Los Alamos National Laboratory! I'm very appreciative of the support and collaboration that made this possible, and excited for what lies ahead. 👨‍🔬",
+      desc:  "Thankful for the recognition of a Spot Award from Los Alamos National Laboratory! I'm very appreciative of the support and collaboration that made this possible, and excited for what lies ahead.",
       image: "images/spot-award.jpg"
     }
   ];
 
-  // ╔═══════════════════════════════════════════════════════════════╗
-  // ║  🛑  STOP — Don't edit below this line                       ║
-  // ║  This code reads the variables above and fills in the page   ║
-  // ╚═══════════════════════════════════════════════════════════════╝
-
+  document.getElementById("nav-name").textContent = myName;
   document.getElementById("hero-name").textContent = myName;
-
-  // Typing animation for title
-  const titleElement = document.getElementById("hero-title");
-  const titles = [title + "<br>" + company + "<br>" + myLocation];
-  let titleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  const typeSpeed = 50;
-  const deleteSpeed = 30;
-  const pauseDuration = 2000;
-
-  function typeTitle() {
-    const currentTitle = titles[titleIndex];
-    const textToShow = currentTitle.substring(0, charIndex);
-    titleElement.innerHTML = textToShow + '<span class="typing-text"></span>';
-
-    if (!isDeleting && charIndex < currentTitle.length) {
-      charIndex++;
-      setTimeout(typeTitle, typeSpeed);
-    } else if (isDeleting && charIndex > 0) {
-      charIndex--;
-      setTimeout(typeTitle, deleteSpeed);
-    } else if (!isDeleting && charIndex === currentTitle.length) {
-      setTimeout(() => {
-        isDeleting = true;
-        typeTitle();
-      }, pauseDuration);
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      titleIndex = (titleIndex + 1) % titles.length;
-      setTimeout(typeTitle, 500);
-    }
-  }
-
-  typeTitle();
+  document.getElementById("hero-title").innerHTML = `<span>${title}</span> at ${company}<br>${myLocation}`;
 
   document.getElementById("email-link").href = "mailto:" + email;
-  document.getElementById("email-text").textContent = email;
   document.getElementById("linkedin-link").href = linkedin;
   document.getElementById("github-link").href = github;
   document.getElementById("resume-link").href = resumeURL;
@@ -660,8 +488,18 @@
   document.getElementById("skills-container").innerHTML =
     skills.map(s => `<span class="interest-tag">${s}</span>`).join("");
 
-  document.getElementById("experience-container").innerHTML =
-    experience.map(e => `
+  document.getElementById("work-container").innerHTML =
+    workExperience.map(e => `
+      <div class="exp-card">
+        <h3>${e.title}</h3>
+        <div class="org">${e.org}</div>
+        <div class="date">${e.date}</div>
+        <p>${e.desc}</p>
+      </div>
+    `).join("");
+
+  document.getElementById("education-container").innerHTML =
+    education.map(e => `
       <div class="exp-card">
         <h3>${e.title}</h3>
         <div class="org">${e.org}</div>
@@ -682,7 +520,7 @@
 
   document.getElementById("awards-container").innerHTML =
     awards.map(a => `
-      <div class="exp-card award-card">
+      <div class="exp-card ${a.image ? 'award-card' : ''}">
         <div>
           <h3>${a.title}</h3>
           <div class="org">${a.org}</div>
@@ -694,27 +532,37 @@
     `).join("");
 
   document.getElementById("footer").innerHTML =
-    `&copy; 2026 ${myName} &middot; <a href="mailto:${email}">${email}</a>`;
+    `&copy; 2026 ${myName}`;
 
-  document.title = myName + " — Portfolio";
-
-  // IntersectionObserver for fade-on-scroll hero effect
-  const hero = document.querySelector('.hero');
-  const mainElement = document.querySelector('main');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        hero.classList.add('fade-out');
-      } else {
-        hero.classList.remove('fade-out');
-      }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function() {
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
     });
-  }, {
-    threshold: 0.1
   });
 
-  observer.observe(mainElement);
+  // Easter egg: U+P+D+O+W+N for rickroll
+  let easterEggSequence = [];
+  const easterEggCode = ['u', 'p', 'd', 'o', 'w', 'n'];
+
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if (easterEggCode.includes(key)) {
+      easterEggSequence.push(key);
+
+      // Keep only last 6 keys
+      if (easterEggSequence.length > 6) {
+        easterEggSequence.shift();
+      }
+
+      // Check if sequence matches
+      if (easterEggSequence.join('') === easterEggCode.join('')) {
+        window.location.href = 'https://www.youtube.com/shorts/8FZd64N6T9A';
+        easterEggSequence = [];
+      }
+    }
+  });
 </script>
+
 </body>
 </html>
