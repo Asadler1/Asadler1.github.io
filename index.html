@@ -421,12 +421,12 @@
   const skills = [
     "Python",
     "JavaScript",
-    "Embedded Systems",
+    "Full C.R.U.D. Operations",
     "Cybersecurity",
     "Web Development",
-    "React",
-    "Data Analysis",
-    "Go"
+    "Linux/Windows CLI Environmenets",
+    "git Version Control",
+    "Extensive RFID Tag Characterization"
   ];
 
   const workExperience = [
@@ -543,7 +543,7 @@
 
   // Easter egg: U+P+D+O+W+N for rickroll
   let easterEggSequence = [];
-  const easterEggCode = ['u', 'p', 'd', 'o', 'w', 'n'];
+  const easterEggCode = ['r', 'e', 'a', 'l'];
 
   document.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
@@ -551,13 +551,13 @@
       easterEggSequence.push(key);
 
       // Keep only last 6 keys
-      if (easterEggSequence.length > 6) {
+      if (easterEggSequence.length > 4) {
         easterEggSequence.shift();
       }
 
       // Check if sequence matches
       if (easterEggSequence.join('') === easterEggCode.join('')) {
-        window.location.href = 'https://www.youtube.com/shorts/8FZd64N6T9A';
+        window.open('https://www.youtube.com/shorts/8FZd64N6T9A', '_blank');
         easterEggSequence = [];
       }
     }
