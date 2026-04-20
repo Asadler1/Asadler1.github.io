@@ -5,20 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anthony Sadler — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J0TMSEQSLC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J0TMSEQSLC');
+</script>
+
 <style>
   :root {
-    --bg-0: #0a0a0a;
-    --bg-1: #1a1a1a;
-    --bg-2: #262626;
-    --text-primary: #ffffff;
-    --text-secondary: #a8a8a8;
+    --bg: #0a0a0a;
+    --bg-secondary: #141414;
+    --text: #ffffff;
+    --text-muted: #a3a3a3;
     --accent: #00d9ff;
-    --accent-alt: #6366f1;
-    --accent-alt-2: #ec4899;
-    --border: #333333;
-    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --accent-2: #6366f1;
+    --border: #262626;
+  }
+
+  body.light-mode {
+    --bg: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text: #0a0a0a;
+    --text-muted: #666666;
+    --border: #e0e0e0;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,11 +41,124 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg-0);
-    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    cursor: none;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-10px, -10px);
+    transition: all 0.1s ease-out;
+  }
+
+  .cursor-dot {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-2px, -2px);
+  }
+
+  a:hover ~ .cursor,
+  button:hover ~ .cursor {
+    width: 30px;
+    height: 30px;
+    border-color: var(--accent-2);
+  }
+
+  .floating-element {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(40px);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(-40px) translateX(-10px); }
+    75% { transform: translateY(-20px) translateX(15px); }
+  }
+
+  .floating-element:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    background: var(--accent);
+    top: 10%;
+    left: 10%;
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .floating-element:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    background: var(--accent-2);
+    bottom: 10%;
+    right: 5%;
+    animation: float 25s infinite ease-in-out reverse;
+  }
+
+  .floating-element:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    background: var(--accent);
+    top: 50%;
+    right: 10%;
+    animation: float 30s infinite ease-in-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  #canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  canvas {
+    display: block;
+  }
+
+  nav, main, .hero, footer {
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .loading-pulse {
+    animation: pulse 2s ease-in-out infinite;
   }
 
   nav {
@@ -52,21 +180,22 @@
   }
   .nav-name {
     font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    text-decoration: none;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-  .nav-links { display: flex; gap: 1.5rem; }
-  .nav-links a {
-    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.85rem;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: color 0.3s;
     position: relative;
   }
   .nav-links a::after {
@@ -79,16 +208,17 @@
     background: var(--accent);
     transition: width 0.3s;
   }
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: var(--text-primary);
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text);
   }
-  .nav-links a.active::after { width: 100%; }
+  .nav-links a.active::after {
+    width: 100%;
+  }
 
   .hero {
     background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
     border-bottom: 1px solid var(--border);
-    padding: 5rem 2rem;
+    padding: 6rem 2rem;
     position: relative;
     overflow: hidden;
   }
@@ -99,40 +229,29 @@
     right: -100px;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -200px;
-    left: -100px;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
     border-radius: 50%;
   }
   .hero-inner {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 3rem;
+    grid-template-columns: 1fr 320px;
+    gap: 4rem;
     align-items: center;
     position: relative;
+    z-index: 1;
   }
   .hero-info h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
+    color: var(--text);
     margin-bottom: 0.5rem;
     line-height: 1.1;
   }
   .hero-info .title {
     font-size: 1.1rem;
-    color: var(--text-secondary);
-    font-weight: 400;
+    color: var(--text-muted);
     margin-bottom: 2rem;
   }
   .hero-info .title span {
@@ -143,57 +262,54 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    margin-bottom: 2rem;
   }
   .hero-contact a {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
     border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 500;
-    text-decoration: none;
     transition: all 0.3s;
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
   }
   .hero-contact a:hover {
     background: rgba(0, 217, 255, 0.1);
     color: var(--accent);
     border-color: var(--accent);
   }
-  .hero-contact a svg {
+  .hero-contact svg {
     width: 16px;
     height: 16px;
   }
   .hero-photo {
-    width: 280px;
-    height: 280px;
+    width: 320px;
+    height: 320px;
     border-radius: 12px;
     object-fit: cover;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
   }
   .resume-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
     color: #000;
     padding: 0.7rem 1.6rem;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.85rem;
-    margin-top: 2rem;
-    transition: all 0.3s;
     border: none;
     cursor: pointer;
+    transition: all 0.3s;
   }
   .resume-btn:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
   }
 
   main {
@@ -210,9 +326,8 @@
   .section-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text);
     margin-bottom: 2rem;
-    position: relative;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -221,13 +336,13 @@
     content: '';
     width: 4px;
     height: 28px;
-    background: linear-gradient(180deg, var(--accent), var(--accent-alt));
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
     border-radius: 2px;
   }
 
   .bio p {
     font-size: 1rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     margin-bottom: 1.5rem;
     max-width: 900px;
     line-height: 1.8;
@@ -259,21 +374,20 @@
     gap: 1.5rem;
   }
   .exp-card {
-    background: var(--bg-1);
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s;
   }
   .exp-card:hover {
-    background: var(--bg-2);
+    background: var(--bg);
     border-color: var(--accent);
-    box-shadow: var(--shadow-md);
   }
   .exp-card h3 {
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text);
     margin-bottom: 0.3rem;
   }
   .exp-card .org {
@@ -282,19 +396,37 @@
     font-size: 0.9rem;
   }
   .exp-card .date {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 0.8rem;
     margin-bottom: 1rem;
   }
   .exp-card p {
     font-size: 0.95rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
+  }
+
+  .award-card {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .award-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  @media (max-width: 768px) {
+    .award-card {
+      grid-template-columns: 1fr;
+    }
   }
 
   footer {
-    background: var(--bg-1);
+    background: var(--bg-secondary);
     border-top: 1px solid var(--border);
-    color: var(--text-secondary);
+    color: var(--text-muted);
     text-align: center;
     padding: 3rem 2rem;
     font-size: 0.8rem;
@@ -302,9 +434,7 @@
   footer a {
     color: var(--accent);
     text-decoration: none;
-    transition: color 0.3s;
   }
-  footer a:hover { color: var(--accent-alt); }
 
   @media (max-width: 768px) {
     .hero-inner {
@@ -314,36 +444,46 @@
     }
     .hero-photo {
       margin: 0 auto;
-      width: 200px;
-      height: 200px;
+      width: 240px;
+      height: 240px;
     }
-    .hero-info h1 { font-size: 2.2rem; }
-    .hero-contact { justify-content: center; }
-    .section-title { font-size: 1.5rem; }
-    .section-title::before { width: 3px; height: 20px; }
-    nav { padding: 0 1rem; }
-    .nav-inner { height: 56px; }
-    .nav-links { gap: 1rem; font-size: 0.8rem; }
-    main { padding: 2rem 1rem; }
+    .hero-info h1 {
+      font-size: 2.2rem;
+    }
+    .hero-contact {
+      justify-content: center;
+    }
+    .section-title {
+      font-size: 1.5rem;
+    }
+    .section-title::before {
+      height: 20px;
+    }
   }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  body { animation: fadeIn 0.6s ease-out; }
 </style>
 </head>
 <body>
 
+<div id="canvas-container"></div>
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+<div class="floating-element"></div>
+<div class="floating-element"></div>
+<div class="floating-element"></div>
+
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-name" id="nav-name"></a>
-    <div class="nav-links">
+    <div style="display: flex; gap: 2rem; align-items: center;">
+      <button id="theme-toggle" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; transition: color 0.3s;" title="Toggle theme">🌙</button>
+      <div class="nav-links">
       <a href="#about" class="active">Home</a>
       <a href="#experience">Experience</a>
       <a href="#publications">Publications</a>
       <a href="#awards">Awards</a>
+      <a href="#projects">Projects</a>
+    </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -381,13 +521,18 @@
     <h2 class="section-title">About</h2>
     <p id="bio-1"></p>
     <p id="bio-2"></p>
-    <h3 style="font-size:0.9rem; color:var(--text-primary); margin-top:2rem; margin-bottom:1rem; font-weight:600;">Skills &amp; Interests</h3>
+    <h3 style="font-size:0.9rem; color:var(--text); margin-top:2rem; margin-bottom:1rem; font-weight:600;">Skills &amp; Interests</h3>
     <div class="interests" id="skills-container"></div>
   </section>
 
   <section id="experience">
     <h2 class="section-title">Experience</h2>
-    <div class="experience-grid" id="experience-container"></div>
+
+    <h3 style="font-size:1.2rem; color:var(--text); margin-bottom:1.5rem; font-weight:600;">Work Experience</h3>
+    <div class="experience-grid" id="work-container"></div>
+
+    <h3 style="font-size:1.2rem; color:var(--text); margin-top:2.5rem; margin-bottom:1.5rem; font-weight:600;">Education</h3>
+    <div class="experience-grid" id="education-container"></div>
   </section>
 
   <section id="publications">
@@ -399,59 +544,61 @@
     <h2 class="section-title">Awards</h2>
     <div class="experience-grid" id="awards-container"></div>
   </section>
+
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="experience-grid" id="projects-container"></div>
+  </section>
 </main>
 
 <footer id="footer"></footer>
 
 <script>
-  // ╔═══════════════════════════════════════════════════════════════╗
-  // ║  ✏️  EDIT YOUR INFO HERE                                     ║
-  // ║  Change the values below — the entire page updates           ║
-  // ║  automatically. You never need to touch the HTML above.      ║
-  // ╚═══════════════════════════════════════════════════════════════╝
-
   const myName     = "Anthony Sadler";
-  const email      = "sadleranthony18@gmai@gmail.com";
-  const title      = "RFID Engineer / Software Developer";
+  const email      = "sadleranthony18@gmail.com";
+  const title      = "Engineer / Software Developer";
   const company    = "Los Alamos National Laboratory";
   const myLocation = "Los Alamos, New Mexico";
   const github     = "https://github.com/Asadler1";
   const linkedin   = "https://www.linkedin.com/in/anthony-sadler-2498b0256";
-  const resumeURL  = "#";  // Replace with a link to your resume PDF
+  const resumeURL  = "#";
 
-  const bio1 = "I currently work at Los Alamos National Laboratory and graduated from St. Mary's University in 2023 with a BS in Engineering Science. I am also working on a MS in Transdisciplinary Cyber Security at New Mexico Tech, where I am expected to graduate in May 2026.";
+  const bio1 = "I currently work at Los Alamos National Laboratory and graduated from St. Mary's University in 2023 with a BS in Engineering Science. I am also working on a MS in Transdisciplinary Cyber Security at New Mexico Tech, where I am expected to graduate in May 2027.";
 
-  const bio2 = "My interests span RFID systems, embedded software, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges.";
+  const bio2 = "My interests span embedded systems, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges.";
 
   const skills = [
     "Python",
     "JavaScript",
-    "RFID Systems",
+    "Full C.R.U.D. Operations",
     "Cybersecurity",
-    "Embedded Software",
     "Web Development",
-    "React",
-    "Data Analysis"
+    "Linux/Windows CLI Environmenets",
+    "git Version Control",
+    "Extensive RFID Tag Characterization"
   ];
 
-  const experience = [
+  const workExperience = [
     {
-      title: "RFID Engineer / Graduate Research Assistant",
+      title: "Engineer / Graduate Research Assistant",
       org:   "Los Alamos National Laboratory",
       date:  "2023 — Present",
-      desc:  "Working on RFID systems and software development. Describe your key projects and achievements here."
+      desc:  "Working on systems engineering and software development. Building solutions for complex technical challenges."
+    }
+  ];
+
+  const education = [
+    {
+      title: "M.S. in Transdisciplinary Cyber Security",
+      org:   "New Mexico Tech",
+      date:  "2024 — 2027 (Expected)",
+      desc:  "Focused on cybersecurity research and advanced technical topics."
     },
     {
       title: "B.S. in Engineering Science",
       org:   "St. Mary's University",
       date:  "2019 — 2023",
-      desc:  "Relevant coursework, honors, activities, or thesis work you'd like to highlight."
-    },
-    {
-      title: "M.S. in Transdisciplinary Cyber Security",
-      org:   "New Mexico Tech",
-      date:  "2024 — 2026 (Expected)",
-      desc:  "Describe your focus areas, research, or notable coursework."
+      desc:  "Focused on engineering fundamentals, design, and practical problem-solving."
     }
   ];
 
@@ -465,26 +612,51 @@
     }
   ];
 
-  const awards = [
+  const projects = [
     {
-      title: "Award Name",
-      org:   "Awarding Organization",
-      date:  "2023",
-      desc:  "Brief description of the award and why it was given."
+      title: "Personal Portfolio Website",
+      org:   "Featured Project",
+      date:  "2026",
+      desc:  "Modern, interactive portfolio website featuring 3D animations, dark/light mode toggle, custom cursor, and smooth scroll effects. Built with vanilla JavaScript, Three.js, and CSS animations."
     }
   ];
 
-  // ╔═══════════════════════════════════════════════════════════════╗
-  // ║  🛑  STOP — Don't edit below this line                       ║
-  // ║  This code reads the variables above and fills in the page   ║
-  // ╚═══════════════════════════════════════════════════════════════╝
+  const awards = [
+    {
+      title: "Spot Award",
+      org:   "Los Alamos National Laboratory",
+      date:  "2026",
+      desc:  "Thankful for the recognition of a Spot Award from Los Alamos National Laboratory! I'm very appreciative of the support and collaboration that made this possible, and excited for what lies ahead.",
+      image: "images/spot-award.jpg"
+    }
+  ];
 
   document.getElementById("nav-name").textContent = myName;
   document.getElementById("hero-name").textContent = myName;
-  document.getElementById("hero-title").innerHTML = title + "<br>" + company + "<br>" + myLocation;
+
+  // Typing animation for title
+  const titleElement = document.getElementById("hero-title");
+  const titleText = `${title} at ${company}\n${myLocation}`;
+  let charIndex = 0;
+  const typeSpeed = 50;
+
+  function typeTitle() {
+    if (charIndex < titleText.length) {
+      const char = titleText[charIndex];
+      if (char === '\n') {
+        titleElement.innerHTML += '<br>';
+      } else {
+        titleElement.innerHTML += char;
+      }
+      charIndex++;
+      setTimeout(typeTitle, typeSpeed);
+    }
+  }
+
+  titleElement.innerHTML = '';
+  typeTitle();
 
   document.getElementById("email-link").href = "mailto:" + email;
-  document.getElementById("email-text").textContent = email;
   document.getElementById("linkedin-link").href = linkedin;
   document.getElementById("github-link").href = github;
   document.getElementById("resume-link").href = resumeURL;
@@ -495,13 +667,33 @@
   document.getElementById("skills-container").innerHTML =
     skills.map(s => `<span class="interest-tag">${s}</span>`).join("");
 
-  document.getElementById("experience-container").innerHTML =
-    experience.map(e => `
+  document.getElementById("work-container").innerHTML =
+    workExperience.map(e => `
       <div class="exp-card">
         <h3>${e.title}</h3>
         <div class="org">${e.org}</div>
         <div class="date">${e.date}</div>
         <p>${e.desc}</p>
+      </div>
+    `).join("");
+
+  document.getElementById("education-container").innerHTML =
+    education.map(e => `
+      <div class="exp-card">
+        <h3>${e.title}</h3>
+        <div class="org">${e.org}</div>
+        <div class="date">${e.date}</div>
+        <p>${e.desc}</p>
+      </div>
+    `).join("");
+
+  document.getElementById("projects-container").innerHTML =
+    projects.map(p => `
+      <div class="exp-card">
+        <h3>${p.title}</h3>
+        <div class="org">${p.org}</div>
+        <div class="date">${p.date}</div>
+        <p>${p.desc}</p>
       </div>
     `).join("");
 
@@ -517,18 +709,184 @@
 
   document.getElementById("awards-container").innerHTML =
     awards.map(a => `
-      <div class="exp-card">
-        <h3>${a.title}</h3>
-        <div class="org">${a.org}</div>
-        <div class="date">${a.date}</div>
-        <p>${a.desc}</p>
+      <div class="exp-card ${a.image ? 'award-card' : ''}">
+        <div>
+          <h3>${a.title}</h3>
+          <div class="org">${a.org}</div>
+          <div class="date">${a.date}</div>
+          <p>${a.desc}</p>
+        </div>
+        ${a.image ? `<img src="${a.image}" alt="${a.title}">` : ''}
       </div>
     `).join("");
 
   document.getElementById("footer").innerHTML =
-    `&copy; 2026 ${myName} &middot; <a href="mailto:${email}">${email}</a>`;
+    `&copy; 2026 ${myName}`;
 
-  document.title = myName + " — Portfolio";
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function() {
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // 3D Background with Three.js
+  const canvas = document.getElementById('canvas-container');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+  canvas.appendChild(renderer.domElement);
+  camera.position.z = 5;
+
+  // Create rotating 3D objects
+  const geometry1 = new THREE.IcosahedronGeometry(1, 4);
+  const material1 = new THREE.MeshPhongMaterial({
+    color: 0x00d9ff,
+    emissive: 0x00d9ff,
+    emissiveIntensity: 0.15,
+    wireframe: true,
+    opacity: 0.15,
+    transparent: true
+  });
+  const mesh1 = new THREE.Mesh(geometry1, material1);
+  mesh1.position.set(-3, 2, -5);
+  scene.add(mesh1);
+
+  const geometry2 = new THREE.OctahedronGeometry(1, 3);
+  const material2 = new THREE.MeshPhongMaterial({
+    color: 0x6366f1,
+    emissive: 0x6366f1,
+    emissiveIntensity: 0.1,
+    wireframe: true,
+    opacity: 0.15,
+    transparent: true
+  });
+  const mesh2 = new THREE.Mesh(geometry2, material2);
+  mesh2.position.set(3, -1, -5);
+  scene.add(mesh2);
+
+  const light = new THREE.PointLight(0x00d9ff, 1);
+  light.position.set(5, 5, 5);
+  scene.add(light);
+
+  const ambientLight = new THREE.AmbientLight(0x6366f1, 0.3);
+  scene.add(ambientLight);
+
+  // DVD-style bouncing
+  const orbs = [
+    { mesh: mesh1, velocity: { x: 0.005, y: 0.004 }, bounds: { x: 4, y: 3 } },
+    { mesh: mesh2, velocity: { x: -0.005, y: 0.006 }, bounds: { x: 4, y: 3 } }
+  ];
+
+  function animate3D() {
+    requestAnimationFrame(animate3D);
+
+    orbs.forEach(orb => {
+      orb.mesh.rotation.x += 0.002;
+      orb.mesh.rotation.y += 0.003;
+
+      orb.mesh.position.x += orb.velocity.x;
+      orb.mesh.position.y += orb.velocity.y;
+
+      // Bounce off edges
+      if (Math.abs(orb.mesh.position.x) > orb.bounds.x) {
+        orb.velocity.x *= -1;
+        orb.mesh.position.x = orb.mesh.position.x > 0 ? orb.bounds.x : -orb.bounds.x;
+      }
+      if (Math.abs(orb.mesh.position.y) > orb.bounds.y) {
+        orb.velocity.y *= -1;
+        orb.mesh.position.y = orb.mesh.position.y > 0 ? orb.bounds.y : -orb.bounds.y;
+      }
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate3D();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Custom cursor
+  const cursorEl = document.querySelector('.cursor');
+  const cursorDotEl = document.querySelector('.cursor-dot');
+
+  document.addEventListener('mousemove', (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+    cursorEl.style.left = posX + 'px';
+    cursorEl.style.top = posY + 'px';
+    cursorDotEl.style.left = posX + 'px';
+    cursorDotEl.style.top = posY + 'px';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursorEl.style.opacity = '0';
+    cursorDotEl.style.opacity = '0';
+  });
+
+  document.addEventListener('mouseenter', () => {
+    cursorEl.style.opacity = '1';
+    cursorDotEl.style.opacity = '1';
+  });
+
+  // Light/dark mode toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    themeToggle.textContent = '☀️';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    themeToggle.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('fade-in');
+        void entry.target.offsetWidth;
+        entry.target.classList.add('fade-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section, .exp-card').forEach(el => {
+    el.classList.add('fade-in');
+    observer.observe(el);
+  });
+
+  // Easter egg: U+P+D+O+W+N for rickroll
+  let easterEggSequence = [];
+  const easterEggCode = ['r', 'e', 'a', 'l'];
+
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if (easterEggCode.includes(key)) {
+      easterEggSequence.push(key);
+
+      // Keep only last 6 keys
+      if (easterEggSequence.length > 4) {
+        easterEggSequence.shift();
+      }
+
+      // Check if sequence matches
+      if (easterEggSequence.join('') === easterEggCode.join('')) {
+        window.open('https://www.youtube.com/shorts/8FZd64N6T9A', '_blank');
+        easterEggSequence = [];
+      }
+    }
+  });
 </script>
 
 </body>
