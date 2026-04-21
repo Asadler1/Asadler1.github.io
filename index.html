@@ -774,10 +774,18 @@
   const ambientLight = new THREE.AmbientLight(0x6366f1, 0.3);
   scene.add(ambientLight);
 
-  // DVD-style bouncing
+  // DVD-style bouncing - calculate bounds based on viewport
+  function calculateBounds() {
+    const vFOV = camera.fov * Math.PI / 180; // Convert to radians
+    const height = 2 * Math.tan(vFOV / 2) * 5; // 5 is the camera z position
+    const width = height * camera.aspect;
+    return { x: width / 2, y: height / 2 };
+  }
+
+  let bounds = calculateBounds();
   const orbs = [
-    { mesh: mesh1, velocity: { x: 0.005, y: 0.004 }, bounds: { x: 4, y: 3 } },
-    { mesh: mesh2, velocity: { x: -0.005, y: 0.006 }, bounds: { x: 4, y: 3 } }
+    { mesh: mesh1, velocity: { x: 0.005, y: 0.004 } },
+    { mesh: mesh2, velocity: { x: -0.005, y: 0.006 } }
   ];
 
   function animate3D() {
@@ -791,13 +799,13 @@
       orb.mesh.position.y += orb.velocity.y;
 
       // Bounce off edges
-      if (Math.abs(orb.mesh.position.x) > orb.bounds.x) {
+      if (Math.abs(orb.mesh.position.x) > bounds.x) {
         orb.velocity.x *= -1;
-        orb.mesh.position.x = orb.mesh.position.x > 0 ? orb.bounds.x : -orb.bounds.x;
+        orb.mesh.position.x = orb.mesh.position.x > 0 ? bounds.x : -bounds.x;
       }
-      if (Math.abs(orb.mesh.position.y) > orb.bounds.y) {
+      if (Math.abs(orb.mesh.position.y) > bounds.y) {
         orb.velocity.y *= -1;
-        orb.mesh.position.y = orb.mesh.position.y > 0 ? orb.bounds.y : -orb.bounds.y;
+        orb.mesh.position.y = orb.mesh.position.y > 0 ? bounds.y : -bounds.y;
       }
     });
 
@@ -809,6 +817,7 @@
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    bounds = calculateBounds();
   });
 
   // Custom cursor
