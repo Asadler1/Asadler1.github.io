@@ -443,16 +443,64 @@
     text-decoration: none;
   }
 
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+
+  .hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .mobile-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    flex-direction: column;
+    min-width: 200px;
+    z-index: 99;
+  }
+
+  .mobile-nav a {
+    padding: 1rem 1.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+    font-size: 0.9rem;
+  }
+
+  .mobile-nav a:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-nav a:hover {
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--accent);
+  }
+
   @media (max-width: 768px) {
     body {
       overflow-x: hidden;
     }
-    .nav-links {
-      gap: 0.5rem;
+    .hamburger {
+      display: flex;
     }
-    .nav-links a {
-      font-size: 0.7rem;
-      padding: 0.3rem 0.5rem;
+    .nav-links {
+      display: none;
+    }
+    .mobile-nav.active {
+      display: flex;
     }
     .nav-inner {
       max-width: 100%;
@@ -503,13 +551,24 @@
     <div style="display: flex; gap: 2rem; align-items: center;">
       <button id="theme-toggle" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; transition: color 0.3s;" title="Toggle theme">🌙</button>
       <div class="nav-links">
-      <a href="#about" class="active">Home</a>
+        <a href="#about" class="active">Home</a>
+        <a href="#experience">Experience</a>
+        <a href="#publications">Publications</a>
+        <a href="#awards">Awards</a>
+        <a href="#projects">Projects</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="#about">Home</a>
       <a href="#experience">Experience</a>
       <a href="#publications">Publications</a>
       <a href="#awards">Awards</a>
       <a href="#projects">Projects</a>
-    </div>
-      </div>
     </div>
   </div>
 </nav>
@@ -762,6 +821,20 @@
     link.addEventListener('click', function() {
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       this.classList.add('active');
+    });
+  });
+
+  // Mobile hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.mobile-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('active');
     });
   });
 
