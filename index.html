@@ -360,6 +360,14 @@
     flex-wrap: wrap;
     gap: 0.8rem;
     margin-top: 1.5rem;
+    align-items: center;
+  }
+
+  .tag-separator {
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0.5rem;
+    font-size: 1.4rem;
   }
   .interest-tag {
     background: rgba(0, 217, 255, 0.1);
@@ -410,6 +418,40 @@
   .exp-card p {
     font-size: 0.95rem;
     color: var(--text-muted);
+  }
+
+  .cert-card {
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    gap: 2rem;
+    align-items: center;
+  }
+  .cert-badge {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s;
+  }
+  .cert-card a:has(.cert-badge):hover .cert-badge {
+    transform: scale(1.05);
+  }
+
+  .cert-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .cert-link:hover {
+    color: var(--accent-2);
+  }
+
+  @media (max-width: 768px) {
+    .cert-card {
+      grid-template-columns: 1fr;
+    }
   }
 
   .award-card {
@@ -555,6 +597,7 @@
         <a href="#experience">Experience</a>
         <a href="#publications">Publications</a>
         <a href="#awards">Awards</a>
+        <a href="#certifications">Certifications</a>
         <a href="#projects">Projects</a>
       </div>
       <div class="hamburger" id="hamburger">
@@ -609,7 +652,7 @@
   </section>
 
   <section id="skills-interests">
-    <h3 style="font-size:0.9rem; color:var(--text); margin-top:2rem; margin-bottom:1rem; font-weight:600;">Skills &amp; Interests</h3>
+    <h3 style="font-size:0.9rem; color:var(--text); margin-top:2rem; margin-bottom:1rem; font-weight:600;">Skills/Interests</h3>
     <div class="interests" id="skills-container"></div>
   </section>
 
@@ -633,6 +676,11 @@
     <div class="experience-grid" id="awards-container"></div>
   </section>
 
+  <section id="certifications">
+    <h2 class="section-title">Certifications</h2>
+    <div class="experience-grid" id="certifications-container"></div>
+  </section>
+
   <section id="projects">
     <h2 class="section-title">Projects</h2>
     <div class="experience-grid" id="projects-container"></div>
@@ -653,7 +701,7 @@
 
   const bio1 = "I currently work at Los Alamos National Laboratory and graduated from St. Mary's University in 2023 with a BS in Engineering Science. I am also working on a MS in Transdisciplinary Cyber Security at New Mexico Tech, where I am expected to graduate in May 2027.";
 
-  const bio2 = "My interests span embedded systems, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges.";
+  const bio2 = "My interests span embedded systems, cybersecurity, and full-stack web development. I enjoy building tools that solve real problems and am always looking for new challenges. I'm also Scrum Master certified and passionate about agile methodologies.";
 
   const skills = [
     "Python",
@@ -668,7 +716,19 @@
     "Embedded Systems",
     "Cybersecurity",
     "RFID Tag Characterization",
-    "Full-Stack Development"
+    "Full-Stack Development",
+    "Scrum Master"
+  ];
+
+  const certifications = [
+    {
+      title: "Certified Scrum Master (CSM)",
+      org:   "Scrum Alliance",
+      date:  "2026",
+      desc:  "Certified Scrum Master credential, demonstrating expertise in agile methodologies and team leadership.",
+      url:   "https://bcert.me/sprvzqqcp",
+      image: "images/csm-badge.jpg"
+    }
   ];
 
   const workExperience = [
@@ -721,6 +781,12 @@
       date:  "2026",
       desc:  "Thankful for the recognition of a Spot Award from Los Alamos National Laboratory! I'm very appreciative of the support and collaboration that made this possible, and excited for what lies ahead.",
       image: "images/spot-award.jpg"
+    },
+    {
+      title: "Certified Scrum Master",
+      org:   "Scrum Alliance",
+      date:  "2026",
+      desc:  "Achieved Scrum Master certification, demonstrating commitment to agile excellence and team leadership in software development."
     }
   ];
 
@@ -757,9 +823,24 @@
   document.getElementById("bio-1").textContent = bio1;
   document.getElementById("bio-2").textContent = bio2;
 
-  const allSkillsAndInterests = [...skills, ...interests];
+  const skillsTags = skills.map(s => `<span class="interest-tag">${s}</span>`).join("");
+  const interestsTags = interests.map(i => `<span class="interest-tag">${i}</span>`).join("");
   document.getElementById("skills-container").innerHTML =
-    allSkillsAndInterests.map(s => `<span class="interest-tag">${s}</span>`).join("");
+    `${skillsTags}<span class="tag-separator"> / </span>${interestsTags}`;
+
+  document.getElementById("certifications-container").innerHTML =
+    certifications.map(c => `
+      <div class="exp-card ${c.image ? 'cert-card' : ''}">
+        <div>
+          <h3>${c.title}</h3>
+          <div class="org">${c.org}</div>
+          <div class="date">${c.date}</div>
+          <p>${c.desc}</p>
+          ${c.url ? `<a href="${c.url}" target="_blank" class="cert-link">View Credential →</a>` : ''}
+        </div>
+        ${c.image ? `<a href="${c.url}" target="_blank"><img src="${c.image}" alt="${c.title}" class="cert-badge"></a>` : ''}
+      </div>
+    `).join("");
 
   document.getElementById("work-container").innerHTML =
     workExperience.map(e => `

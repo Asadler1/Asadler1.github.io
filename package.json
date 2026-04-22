@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-tests",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0",
+    "jsdom": "^24.0.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@playwright/test": "^1.44.0",
+    "@axe-core/playwright": "^4.9.0",
+    "playwright-lighthouse": "^4.0.0",
+    "serve": "^14.2.0"
+  }
+}
