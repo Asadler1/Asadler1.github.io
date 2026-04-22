@@ -437,6 +437,13 @@
   }
 
   @media (max-width: 768px) {
+    .nav-links {
+      gap: 0.8rem;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+    }
     .hero-inner {
       grid-template-columns: 1fr;
       text-align: center;
@@ -521,6 +528,9 @@
     <h2 class="section-title">About</h2>
     <p id="bio-1"></p>
     <p id="bio-2"></p>
+  </section>
+
+  <section id="skills-interests">
     <h3 style="font-size:0.9rem; color:var(--text); margin-top:2rem; margin-bottom:1rem; font-weight:600;">Skills &amp; Interests</h3>
     <div class="interests" id="skills-container"></div>
   </section>
@@ -571,11 +581,16 @@
     "Python",
     "JavaScript",
     "Full C.R.U.D. Operations",
-    "Cybersecurity",
     "Web Development",
-    "Linux/Windows CLI Environmenets",
-    "git Version Control",
-    "Extensive RFID Tag Characterization"
+    "Linux/Windows CLI Environments",
+    "git Version Control"
+  ];
+
+  const interests = [
+    "Embedded Systems",
+    "Cybersecurity",
+    "RFID Tag Characterization",
+    "Full-Stack Development"
   ];
 
   const workExperience = [
@@ -664,8 +679,9 @@
   document.getElementById("bio-1").textContent = bio1;
   document.getElementById("bio-2").textContent = bio2;
 
+  const allSkillsAndInterests = [...skills, ...interests];
   document.getElementById("skills-container").innerHTML =
-    skills.map(s => `<span class="interest-tag">${s}</span>`).join("");
+    allSkillsAndInterests.map(s => `<span class="interest-tag">${s}</span>`).join("");
 
   document.getElementById("work-container").innerHTML =
     workExperience.map(e => `
