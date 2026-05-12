@@ -774,6 +774,14 @@
       org:   "Featured Project",
       date:  "2026",
       desc:  "Modern, interactive portfolio website featuring 3D animations, dark/light mode toggle, custom cursor, and smooth scroll effects. Built with vanilla JavaScript, Three.js, and CSS animations."
+    },
+    {
+      
+      title: "Channel State Information WiFi Detection System",
+      org:   "Featured Project",
+      date:  "Present",
+      desc:  "WiFi detection system used to detect presene of a person in a room",
+      headline: "***MORE TO COME***"
     }
   ];
 
@@ -867,6 +875,7 @@
         <div class="org">${p.org}</div>
         <div class="date">${p.date}</div>
         <p>${p.desc}</p>
+        ${p.headline ? `<h3 style="margin-top: 1rem; text-align: center;">${p.headline}</h3>` : ''}
       </div>
     `).join("");
 
