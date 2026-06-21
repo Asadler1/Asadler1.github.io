@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony Sadler — Resume</title>
+<style>
+  :root {
+    --accent: #1F3A66;
+    --text: #222222;
+    --muted: #555555;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    font-size: 10.5pt;
+    line-height: 1.1;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.45in 0.4in;
+    background: #fff;
+  }
+  h1 {
+    text-align: center;
+    color: var(--accent);
+    font-size: 22pt;
+    letter-spacing: 2px;
+    margin: 0 0 2px 0;
+  }
+  .contact {
+    text-align: center;
+    color: var(--muted);
+    font-size: 9.5pt;
+    margin-bottom: 6px;
+  }
+  .contact a { color: var(--muted); text-decoration: none; }
+  h2 {
+    color: var(--accent);
+    font-size: 11pt;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1.2px solid var(--accent);
+    padding-bottom: 1px;
+    margin: 8px 0 3px 0;
+  }
+  p { margin: 0; }
+  .objective { text-align: justify; margin-bottom: 1px; }
+  /* org/location on the left, date on the far right */
+  .entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 4px;
+  }
+  .entry .org { font-weight: bold; }
+  .entry .date { color: var(--muted); font-size: 9.5pt; white-space: nowrap; padding-left: 12px; }
+  .role { font-style: italic; margin: 0 0 1px 0; }
+  ul { margin: 1px 0 0 0; padding-left: 18px; }
+  li { margin-bottom: 0; }
+  /* two-column skills */
+  .skills { columns: 2; column-gap: 28px; margin: 0; padding-left: 18px; }
+  .skills li { break-inside: avoid; }
+  .edu-org { margin: 4px 0 0 0; }
+  .edu-role { display: flex; justify-content: space-between; align-items: baseline; font-style: italic; font-weight: bold; margin: 0 0 3px 0; }
+  @page {
+    size: Letter;
+    margin: 0.45in 0.4in;
+  }
+  @media print {
+    body { padding: 0; max-width: none; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <h1>ANTHONY SADLER</h1>
+  <p class="contact">Los Alamos, New Mexico &nbsp;•&nbsp; Sadleranthony18@gmail.com &nbsp;•&nbsp; <a href="https://www.anthonysadler.net/">anthonysadler.net</a></p>
+
+  <h2>Objective</h2>
+  <p class="objective">Graduate Research Assistant and SNECC member at LANL with extensive hands-on experience developing RFID-based inventory systems and database-driven web applications. Skilled in designing automated data workflows and using modern frameworks such as Flask and SQL to streamline research processes and rapidly prototype C.R.U.D. applications. Motivated to continue contributing technical solutions that strengthen nuclear security and support the broader non-proliferation mission.</p>
+
+  <h2>Education</h2>
+  <p class="edu-org">New Mexico Tech, Socorro, NM</p>
+  <div class="edu-role"><span>Master of Science, Transdisciplinary Cyber Security</span><span class="date">Expected May 2027</span></div>
+  <p class="edu-org">St. Mary's University, San Antonio, TX</p>
+  <div class="edu-role"><span>Bachelor of Science, Engineering Science: Environmental</span><span class="date">May 2024</span></div>
+
+  <h2>Certifications</h2>
+  <ul>
+    <li>Scrum Certified — see <a href="https://www.anthonysadler.net/">anthonysadler.net</a> for verification.</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <ul class="skills">
+    <li>RFID tag characterization (extensive)</li>
+    <li>Python / JavaScript / HTML / C (proficient); Rust (intermediate)</li>
+    <li>SQL database management</li>
+    <li>Git version control</li>
+    <li>Full C.R.U.D. operations</li>
+    <li>Android / Kotlin development</li>
+    <li>Linux / Windows command-line environments</li>
+    <li>Automated data ingestion &amp; updates via server-side API calls</li>
+  </ul>
+
+  <h2>Work and Internship Experience</h2>
+  <div class="entry"><span class="org">Los Alamos National Laboratory, Los Alamos, NM</span><span class="date">June 2024 – Present</span></div>
+  <p class="role">Graduate Research Assistant</p>
+  <ul>
+    <li>Develop and maintain an RFID-based inventory tracking system (Python, SQL, JavaScript) on track for a pilot deployment in the plutonium facility, implementing full C.R.U.D. operations.</li>
+    <li>Designed and built Black Bear RFID (Python/Rust), an internal RFID experiment analysis tool used by 4 researchers to process and evaluate data from RFID tag characterization experiments.</li>
+    <li>Performed extensive RFID tag characterization experiments, applying deep RFID knowledge to inform hardware selection for high-security pilot environments.</li>
+    <li>Automated data ingestion and experiment updates via server-side API calls, integrating results into a SQL database and structured reporting pipelines.</li>
+    <li>Developed supporting web interfaces (HTML/JavaScript) and managed version control with Git across collaborative development workflows.</li>
+    <li>Leveraged Linux and Windows command-line environments for deployment, debugging, system configuration, and experimental control.</li>
+    <li>Contributed to Android/Kotlin-based mobile integration for RFID interaction and field-testing workflows.</li>
+  </ul>
+
+  <div class="entry"><span class="org">University of Texas at San Antonio, San Antonio, TX</span><span class="date">June 2023 – August 2023</span></div>
+  <p class="role">Nuclear Security Researcher (URE CONNECT Fellow)</p>
+  <ul>
+    <li>Used game theory to analyze how adversarial nation-state behavior shifts when agreements are enforced by code instead of regulating bodies.</li>
+    <li>Researched and presented how smart-contract architectures can improve fault tolerance in nuclear systems.</li>
+    <li>Authored a paper detailing the game-theory results and how smart contracts can be practically implemented for proliferation agreements.</li>
+  </ul>
+
+  <div class="entry"><span class="org">San Antonio Food Bank (SAFB), San Antonio, TX</span><span class="date">Summers 2019 – 2021</span></div>
+  <p class="role">Summer Feeding Specialist</p>
+
+  <h2>Leadership and Volunteer Activities</h2>
+  <div class="entry"><span class="org">Los Alamos National Laboratory, Los Alamos, NM</span><span class="date">May 2025 – August 2025</span></div>
+  <p class="role">Unofficial Mentor</p>
+  <ul>
+    <li>Mentored an undergraduate student and a post-bachelor summer intern on using RFID experimental analysis tools (Black Bear RFID).</li>
+  </ul>
+
+  <div class="entry"><span class="org">St. Mary's University, San Antonio, TX</span><span class="date">August 2023 – May 2024</span></div>
+  <p class="role">Lewis Stokes Alliance for Minority Participation (LSAMP)</p>
+
+  <div class="entry"><span class="org">Jefferson High School, San Antonio, TX</span><span class="date">September 2022 – September 2023</span></div>
+  <p class="role">Student Mentor, YoungLife Mentorship</p>
+  <ul>
+    <li>Facilitated meetings to check student progress and help set academic and research goals.</li>
+    <li>Provided tutoring and academic support in STEM coursework.</li>
+  </ul>
+
+  <div class="entry"><span class="org">St. Mary's University, San Antonio, TX</span><span class="date">August 2021 – August 2022</span></div>
+  <p class="role">President, StMU Crypto Club</p>
+  <ul>
+    <li>Founded and served as president of the StMU Crypto Club, promoting blockchain technology.</li>
+  </ul>
+
+  <div class="entry"><span class="org">San Antonio Food Bank, San Antonio, TX</span><span class="date">April 2018 – Present</span></div>
+  <p class="role">Volunteer</p>
+
+  <h2>Research</h2>
+  <div class="entry"><span class="org">WiFi Radar, Los Alamos, NM</span><span class="date">February 2026 – Present</span></div>
+  <ul>
+    <li>Built an end-to-end WiFi sensing system that detects human presence in a room from Channel State Information (CSI) exchanged between two ESP32 boards, achieving over 85% classification accuracy.</li>
+    <li>Implemented real-time inference running at ~100 packets/second with a moving-window smoothing filter, reporting predicted class, confidence, and signal strength.</li>
+    <li>Engineered the full workflow across embedded C and Python, from low-level CSI capture to model training and live deployment, on a network-security research project at NMT.</li>
+  </ul>
+
+  <h2>Achievements</h2>
+  <ul>
+    <li>Spot Award Recipient, Los Alamos National Laboratory.</li>
+    <li>Merit-based scholarship totaling over $50,000 (undergraduate).</li>
+    <li>IEEE RFID journal article and presentation, first author.</li>
+  </ul>
+
+</body>
+</html>
