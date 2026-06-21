@@ -21,6 +21,10 @@
     padding: 0.45in 0.4in;
     background: #fff;
   }
+  .header-wrap { position: relative; }
+  .qr-wrap { position: absolute; top: 0; right: 0; display: flex; align-items: center; gap: 8px; }
+  .scan-me { font-size: 9.5pt; color: #E07B2A; font-weight: bold; letter-spacing: 0.5px; white-space: nowrap; }
+  .qr-code { width: 44px; height: 44px; }
   h1 {
     text-align: center;
     color: var(--accent);
@@ -74,8 +78,14 @@
 </head>
 <body>
 
-  <h1>ANTHONY SADLER</h1>
-  <p class="contact">Los Alamos, New Mexico &nbsp;•&nbsp; Sadleranthony18@gmail.com &nbsp;•&nbsp; <a href="https://www.anthonysadler.net/">anthonysadler.net</a></p>
+  <div class="header-wrap">
+    <div class="qr-wrap">
+      <span class="scan-me">Scan Me →</span>
+      <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.anthonysadler.net/" alt="QR code for anthonysadler.net">
+    </div>
+    <h1>ANTHONY SADLER</h1>
+    <p class="contact">Los Alamos, New Mexico &nbsp;•&nbsp; Sadleranthony18@gmail.com &nbsp;•&nbsp; <a href="https://www.anthonysadler.net/">anthonysadler.net</a></p>
+  </div>
 
   <h2>Objective</h2>
   <p class="objective">Graduate Research Assistant and SNECC member at LANL with extensive hands-on experience developing RFID-based inventory systems and database-driven web applications. Skilled in designing automated data workflows and using modern frameworks such as Flask and SQL to streamline research processes and rapidly prototype C.R.U.D. applications. Motivated to continue contributing technical solutions that strengthen nuclear security and support the broader non-proliferation mission.</p>
