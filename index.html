@@ -579,6 +579,12 @@
       height: 20px;
     }
   }
+
+@media (pointer:coarse) {
+  body { cursor: auto; }
+  .cursor, .cursor-dot { display: none;}
+}
+
 </style>
 </head>
 <body>
@@ -1017,6 +1023,7 @@
   });
 
   // Custom cursor
+if (window.matchMedia('(pointer: fine)').matches){
   const cursorEl = document.querySelector('.cursor');
   const cursorDotEl = document.querySelector('.cursor-dot');
 
@@ -1038,7 +1045,7 @@
     cursorEl.style.opacity = '1';
     cursorDotEl.style.opacity = '1';
   });
-
+}
   // Light/dark mode toggle
   const themeToggle = document.getElementById('theme-toggle');
   const savedTheme = localStorage.getItem('theme') || 'dark';
