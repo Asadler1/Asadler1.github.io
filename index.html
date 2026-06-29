@@ -457,7 +457,7 @@
     }
   }
 
-  .award-card {
+  .award-card, .pub-card{
     display: grid;
     grid-template-columns: 1fr 280px;
     gap: 2rem;
@@ -470,7 +470,7 @@
     object-fit: cover;
   }
   @media (max-width: 768px) {
-    .award-card {
+    .award-card, .pub-card{
       grid-template-columns: 1fr;
     }
   }
@@ -583,6 +583,40 @@
 @media (pointer:coarse) {
   body { cursor: auto; }
   .cursor, .cursor-dot { display: none;}
+}
+
+.carousel {
+  position: relative;
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.carousel img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: none;
+  border-radius: 8px;
+}
+.carousel img.active {
+  display: block;
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.carousel-dot.active {
+  background: var(--accent);
 }
 
 </style>
@@ -773,7 +807,8 @@
       venue: "IEEE RFID 2026",
       date:  "2026",
       link:  "",
-      desc:  "First author. A comprehensive study characterizing the performance of commercially available on-metal RFID tags applied to nuclear material storage containers, identifying preferred tag placements and demonstrating consistent performance across container sizes to inform robust RFID-based inventory systems in high consequence environments."
+      desc:  "First author. A comprehensive study characterizing the performance of commercially available on-metal RFID tags applied to nuclear material storage containers, identifying preferred tag placements and demonstrating consistent performance across container sizes to inform robust RFID-based inventory systems in high consequence environments.",
+      photos: ["images/IEEE-2.jpg", "images/IEEE-1.jpg", "images/IEEE-3.jpg", "images/IEEE-4.jpg"]
     }
   ];
 
@@ -889,14 +924,58 @@
     `).join("");
 
   document.getElementById("publications-container").innerHTML =
-    publications.map(p => `
-      <div href="${p.link}" class="exp-card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>${p.title}</h3>
-        <div class="org">${p.venue}</div>
-        <div class="date">${p.date}</div>
-        <p>${p.desc}</p>
-      </a>
+    publications.map((p, i) => `
+      <div class="exp-card ${p.photos ? 'pub-card' : ''}">
+        <div>
+          <h3>${p.title}</h3>
+          <div class="org">${p.venue}</div>
+          <div class="date">${p.date}</div>
+          <p>${p.desc}</p>
+        </div>
+        ${p.photos ? `
+          <div>
+            <div class="carousel" id="carousel-${i}">
+              ${p.photos.map((src, j) => `<img src="${src}" class="${j === 0 ? 'active' : ''}">`).join("")}
+            </div>
+            <div class="carousel-dots" id="dots-${i}">
+              ${p.photos.map((_, j) => `<div class="carousel-dot ${j === 0 ? 'active' : ''}" data-carousel="${i}" data-index="${j}"></div>`).join("")}
+            </div>
+          </div>
+        ` : ""}
+      </div>
     `).join("");
+
+
+    // Carousel logic
+document.querySelectorAll('.carousel-dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    const carouselId = dot.dataset.carousel;
+    const index = parseInt(dot.dataset.index);
+    setSlide(carouselId, index);
+  });
+});
+
+function setSlide(carouselId, index) {
+  const carousel = document.getElementById(`carousel-${carouselId}`);
+  const dots = document.getElementById(`dots-${carouselId}`);
+  carousel.querySelectorAll('img').forEach((img, i) => {
+    img.classList.toggle('active', i === index);
+  });
+  dots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+publications.forEach((p, i) => {
+  if (!p.photos) return;
+  let current = 0;
+  setInterval(() => {
+    current = (current + 1) % p.photos.length;
+    setSlide(i, current);
+  }, 3000);
+});
+
+
 
   document.getElementById("awards-container").innerHTML =
     awards.map(a => `
